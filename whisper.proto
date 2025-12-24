@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package whisper;
+
+// 明确优先级枚举，便于理解和处理
+enum Priority {
+    PRIORITY_LOW = 0;
+    PRIORITY_NORMAL = 1;
+    PRIORITY_HIGH = 2;
+    PRIORITY_URGENT = 3;
+}
+
+// 优化后的消息结构
+message Whisper {
+    // 使用16字节的UUID，这是唯一ID的标准长度
+    bytes id = 1;          // 长度严格为16字节，用于去重和追踪
+
+    // 耳语的文本内容，UTF-8编码
+    string content = 2;
+
+    // 使用固定64位存储纳秒级时间戳，编码/解码最快
+    fixed64 timestamp_ns = 3;
+
+    // 使用枚举类型，比整数更清晰，体积相同（1字节）
+    Priority priority = 4;
+}

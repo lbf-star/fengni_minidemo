@@ -1,0 +1,604 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{FFE40B2C-2C2B-36ED-9171-96E57E891F27}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>crypto</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+    <Import Project="E:\Toy_project\fengni\silent-speaker\target\debug\build\quiche-6a4455417317dc3a\out\build\crypto.dir\nasm.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\Toy_project\fengni\silent-speaker\target\debug\build\quiche-6a4455417317dc3a\out\build\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">crypto.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">crypto</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\Toy_project\fengni\silent-speaker\target\debug\build\quiche-6a4455417317dc3a\out\build\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">crypto.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">crypto</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\Toy_project\fengni\silent-speaker\target\debug\build\quiche-6a4455417317dc3a\out\build\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">crypto.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">crypto</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\Toy_project\fengni\silent-speaker\target\debug\build\quiche-6a4455417317dc3a\out\build\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">crypto.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">crypto</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) -Brepro -Brepro</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <BufferSecurityCheck></BufferSecurityCheck>
+      <CallingConvention></CallingConvention>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel></FloatingPointModel>
+      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization></Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);_HAS_EXCEPTIONS=0;WIN32_LEAN_AND_MEAN;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_STL_EXTRA_DISABLED_WARNINGS=4774 4987;BORINGSSL_IMPLEMENTATION;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_HAS_EXCEPTIONS=0;WIN32_LEAN_AND_MEAN;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_STL_EXTRA_DISABLED_WARNINGS=4774 4987;BORINGSSL_IMPLEMENTATION;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <NASM>
+      <IncludePaths>D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\include\;%(IncludePaths)</IncludePaths>
+      <AdditionalOptions>-gcv8</AdditionalOptions>
+      <Outputswitch>1</Outputswitch>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);_HAS_EXCEPTIONS=0;WIN32_LEAN_AND_MEAN;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_STL_EXTRA_DISABLED_WARNINGS=4774 4987;BORINGSSL_IMPLEMENTATION;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+    </NASM>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) -Brepro</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <BufferSecurityCheck></BufferSecurityCheck>
+      <CallingConvention></CallingConvention>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel></FloatingPointModel>
+      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);NDEBUG;_HAS_EXCEPTIONS=0;WIN32_LEAN_AND_MEAN;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_STL_EXTRA_DISABLED_WARNINGS=4774 4987;BORINGSSL_IMPLEMENTATION;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;NDEBUG;_HAS_EXCEPTIONS=0;WIN32_LEAN_AND_MEAN;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_STL_EXTRA_DISABLED_WARNINGS=4774 4987;BORINGSSL_IMPLEMENTATION;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <NASM>
+      <IncludePaths>D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\include\;%(IncludePaths)</IncludePaths>
+      <AdditionalOptions>-gcv8</AdditionalOptions>
+      <Outputswitch>1</Outputswitch>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);NDEBUG;_HAS_EXCEPTIONS=0;WIN32_LEAN_AND_MEAN;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_STL_EXTRA_DISABLED_WARNINGS=4774 4987;BORINGSSL_IMPLEMENTATION;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+    </NASM>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) -Brepro</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <BufferSecurityCheck></BufferSecurityCheck>
+      <CallingConvention></CallingConvention>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel></FloatingPointModel>
+      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);NDEBUG;_HAS_EXCEPTIONS=0;WIN32_LEAN_AND_MEAN;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_STL_EXTRA_DISABLED_WARNINGS=4774 4987;BORINGSSL_IMPLEMENTATION;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;NDEBUG;_HAS_EXCEPTIONS=0;WIN32_LEAN_AND_MEAN;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_STL_EXTRA_DISABLED_WARNINGS=4774 4987;BORINGSSL_IMPLEMENTATION;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <NASM>
+      <IncludePaths>D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\include\;%(IncludePaths)</IncludePaths>
+      <AdditionalOptions>-gcv8</AdditionalOptions>
+      <Outputswitch>1</Outputswitch>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);NDEBUG;_HAS_EXCEPTIONS=0;WIN32_LEAN_AND_MEAN;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_STL_EXTRA_DISABLED_WARNINGS=4774 4987;BORINGSSL_IMPLEMENTATION;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
+    </NASM>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) -Brepro</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <BufferSecurityCheck></BufferSecurityCheck>
+      <CallingConvention></CallingConvention>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <FloatingPointModel></FloatingPointModel>
+      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);NDEBUG;_HAS_EXCEPTIONS=0;WIN32_LEAN_AND_MEAN;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_STL_EXTRA_DISABLED_WARNINGS=4774 4987;BORINGSSL_IMPLEMENTATION;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;NDEBUG;_HAS_EXCEPTIONS=0;WIN32_LEAN_AND_MEAN;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_STL_EXTRA_DISABLED_WARNINGS=4774 4987;BORINGSSL_IMPLEMENTATION;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <NASM>
+      <IncludePaths>D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\include\;%(IncludePaths)</IncludePaths>
+      <AdditionalOptions>-gcv8</AdditionalOptions>
+      <Outputswitch>1</Outputswitch>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);NDEBUG;_HAS_EXCEPTIONS=0;WIN32_LEAN_AND_MEAN;NOMINMAX;_CRT_SECURE_NO_WARNINGS;_STL_EXTRA_DISABLED_WARNINGS=4774 4987;BORINGSSL_IMPLEMENTATION;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
+    </NASM>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Lib>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule D:/SoftwareInstallationFolder/Rust/cargo_home/registry/src/index.crates.io-1949cf8c6b5b557f/quiche-0.24.6/deps/boringssl/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/SoftwareInstallationFolder/Rust/cargo_home/registry/src/index.crates.io-1949cf8c6b5b557f/quiche-0.24.6/deps/boringssl -BE:/Toy_project/fengni/silent-speaker/target/debug/build/quiche-6a4455417317dc3a/out/build --check-stamp-file E:/Toy_project/fengni/silent-speaker/target/debug/build/quiche-6a4455417317dc3a/out/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeASMInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeASM_NASMInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeASMLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeASM_NASMLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeCLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeCXXLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeCommonLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Linker\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Linker\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Linker\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Linker\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Linker\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Linker\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-4.2\Templates\MSBuild\nasm.props.in;E:\Toy_project\fengni\silent-speaker\target\debug\build\quiche-6a4455417317dc3a\out\build\CMakeFiles\4.2.1\CMakeASM_NASMCompiler.cmake;E:\Toy_project\fengni\silent-speaker\target\debug\build\quiche-6a4455417317dc3a\out\build\CMakeFiles\4.2.1\CMakeCCompiler.cmake;E:\Toy_project\fengni\silent-speaker\target\debug\build\quiche-6a4455417317dc3a\out\build\CMakeFiles\4.2.1\CMakeCXXCompiler.cmake;E:\Toy_project\fengni\silent-speaker\target\debug\build\quiche-6a4455417317dc3a\out\build\CMakeFiles\4.2.1\CMakeRCCompiler.cmake;E:\Toy_project\fengni\silent-speaker\target\debug\build\quiche-6a4455417317dc3a\out\build\CMakeFiles\4.2.1\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\Toy_project\fengni\silent-speaker\target\debug\build\quiche-6a4455417317dc3a\out\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule D:/SoftwareInstallationFolder/Rust/cargo_home/registry/src/index.crates.io-1949cf8c6b5b557f/quiche-0.24.6/deps/boringssl/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/SoftwareInstallationFolder/Rust/cargo_home/registry/src/index.crates.io-1949cf8c6b5b557f/quiche-0.24.6/deps/boringssl -BE:/Toy_project/fengni/silent-speaker/target/debug/build/quiche-6a4455417317dc3a/out/build --check-stamp-file E:/Toy_project/fengni/silent-speaker/target/debug/build/quiche-6a4455417317dc3a/out/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeASMInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeASM_NASMInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeASMLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeASM_NASMLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeCLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeCXXLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeCommonLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Linker\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Linker\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Linker\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Linker\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Linker\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Linker\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-4.2\Templates\MSBuild\nasm.props.in;E:\Toy_project\fengni\silent-speaker\target\debug\build\quiche-6a4455417317dc3a\out\build\CMakeFiles\4.2.1\CMakeASM_NASMCompiler.cmake;E:\Toy_project\fengni\silent-speaker\target\debug\build\quiche-6a4455417317dc3a\out\build\CMakeFiles\4.2.1\CMakeCCompiler.cmake;E:\Toy_project\fengni\silent-speaker\target\debug\build\quiche-6a4455417317dc3a\out\build\CMakeFiles\4.2.1\CMakeCXXCompiler.cmake;E:\Toy_project\fengni\silent-speaker\target\debug\build\quiche-6a4455417317dc3a\out\build\CMakeFiles\4.2.1\CMakeRCCompiler.cmake;E:\Toy_project\fengni\silent-speaker\target\debug\build\quiche-6a4455417317dc3a\out\build\CMakeFiles\4.2.1\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\Toy_project\fengni\silent-speaker\target\debug\build\quiche-6a4455417317dc3a\out\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule D:/SoftwareInstallationFolder/Rust/cargo_home/registry/src/index.crates.io-1949cf8c6b5b557f/quiche-0.24.6/deps/boringssl/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/SoftwareInstallationFolder/Rust/cargo_home/registry/src/index.crates.io-1949cf8c6b5b557f/quiche-0.24.6/deps/boringssl -BE:/Toy_project/fengni/silent-speaker/target/debug/build/quiche-6a4455417317dc3a/out/build --check-stamp-file E:/Toy_project/fengni/silent-speaker/target/debug/build/quiche-6a4455417317dc3a/out/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeASMInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeASM_NASMInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeASMLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeASM_NASMLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeCLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeCXXLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeCommonLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Linker\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Linker\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Linker\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Linker\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Linker\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Linker\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-4.2\Templates\MSBuild\nasm.props.in;E:\Toy_project\fengni\silent-speaker\target\debug\build\quiche-6a4455417317dc3a\out\build\CMakeFiles\4.2.1\CMakeASM_NASMCompiler.cmake;E:\Toy_project\fengni\silent-speaker\target\debug\build\quiche-6a4455417317dc3a\out\build\CMakeFiles\4.2.1\CMakeCCompiler.cmake;E:\Toy_project\fengni\silent-speaker\target\debug\build\quiche-6a4455417317dc3a\out\build\CMakeFiles\4.2.1\CMakeCXXCompiler.cmake;E:\Toy_project\fengni\silent-speaker\target\debug\build\quiche-6a4455417317dc3a\out\build\CMakeFiles\4.2.1\CMakeRCCompiler.cmake;E:\Toy_project\fengni\silent-speaker\target\debug\build\quiche-6a4455417317dc3a\out\build\CMakeFiles\4.2.1\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\Toy_project\fengni\silent-speaker\target\debug\build\quiche-6a4455417317dc3a\out\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule D:/SoftwareInstallationFolder/Rust/cargo_home/registry/src/index.crates.io-1949cf8c6b5b557f/quiche-0.24.6/deps/boringssl/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/SoftwareInstallationFolder/Rust/cargo_home/registry/src/index.crates.io-1949cf8c6b5b557f/quiche-0.24.6/deps/boringssl -BE:/Toy_project/fengni/silent-speaker/target/debug/build/quiche-6a4455417317dc3a/out/build --check-stamp-file E:/Toy_project/fengni/silent-speaker/target/debug/build/quiche-6a4455417317dc3a/out/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeASMInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeASM_NASMInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeASMLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeASM_NASMLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeCLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeCXXLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Internal\CMakeCommonLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Linker\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Linker\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Linker\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Linker\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Linker\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Linker\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-4.2\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-4.2\Templates\MSBuild\nasm.props.in;E:\Toy_project\fengni\silent-speaker\target\debug\build\quiche-6a4455417317dc3a\out\build\CMakeFiles\4.2.1\CMakeASM_NASMCompiler.cmake;E:\Toy_project\fengni\silent-speaker\target\debug\build\quiche-6a4455417317dc3a\out\build\CMakeFiles\4.2.1\CMakeCCompiler.cmake;E:\Toy_project\fengni\silent-speaker\target\debug\build\quiche-6a4455417317dc3a\out\build\CMakeFiles\4.2.1\CMakeCXXCompiler.cmake;E:\Toy_project\fengni\silent-speaker\target\debug\build\quiche-6a4455417317dc3a\out\build\CMakeFiles\4.2.1\CMakeRCCompiler.cmake;E:\Toy_project\fengni\silent-speaker\target\debug\build\quiche-6a4455417317dc3a\out\build\CMakeFiles\4.2.1\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\Toy_project\fengni\silent-speaker\target\debug\build\quiche-6a4455417317dc3a\out\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <NASM Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\win-x86_64\crypto\chacha\chacha-x86_64.asm" />
+    <NASM Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\win-x86_64\crypto\cipher_extra\aes128gcmsiv-x86_64.asm" />
+    <NASM Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\win-x86_64\crypto\cipher_extra\chacha20_poly1305_x86_64.asm" />
+    <NASM Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\win-x86_64\crypto\fipsmodule\aesni-gcm-x86_64.asm" />
+    <NASM Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\win-x86_64\crypto\fipsmodule\aesni-x86_64.asm" />
+    <NASM Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\win-x86_64\crypto\fipsmodule\ghash-ssse3-x86_64.asm" />
+    <NASM Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\win-x86_64\crypto\fipsmodule\ghash-x86_64.asm" />
+    <NASM Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\win-x86_64\crypto\fipsmodule\md5-x86_64.asm" />
+    <NASM Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\win-x86_64\crypto\fipsmodule\p256-x86_64-asm.asm" />
+    <NASM Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\win-x86_64\crypto\fipsmodule\p256_beeu-x86_64-asm.asm" />
+    <NASM Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\win-x86_64\crypto\fipsmodule\rdrand-x86_64.asm" />
+    <NASM Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\win-x86_64\crypto\fipsmodule\rsaz-avx2.asm" />
+    <NASM Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\win-x86_64\crypto\fipsmodule\sha1-x86_64.asm" />
+    <NASM Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\win-x86_64\crypto\fipsmodule\sha256-x86_64.asm" />
+    <NASM Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\win-x86_64\crypto\fipsmodule\sha512-x86_64.asm" />
+    <NASM Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\win-x86_64\crypto\fipsmodule\vpaes-x86_64.asm" />
+    <NASM Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\win-x86_64\crypto\fipsmodule\x86_64-mont.asm" />
+    <NASM Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\win-x86_64\crypto\fipsmodule\x86_64-mont5.asm" />
+    <NASM Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\win-x86_64\crypto\test\trampoline-x86_64.asm" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\err_data.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\asn1\a_bitstr.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\asn1\a_bool.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\asn1\a_d2i_fp.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\asn1\a_dup.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\asn1\a_enum.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\asn1\a_gentm.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\asn1\a_i2d_fp.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\asn1\a_int.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\asn1\a_mbstr.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\asn1\a_object.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\asn1\a_octet.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\asn1\a_print.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\asn1\a_strex.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\asn1\a_strnid.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\asn1\a_time.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\asn1\a_type.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\asn1\a_utctm.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\asn1\a_utf8.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\asn1\asn1_lib.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\asn1\asn1_par.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\asn1\asn_pack.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\asn1\f_enum.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\asn1\f_int.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\asn1\f_string.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\asn1\tasn_dec.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\asn1\tasn_enc.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\asn1\tasn_fre.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\asn1\tasn_new.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\asn1\tasn_typ.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\asn1\tasn_utl.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\asn1\time_support.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\base64\base64.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\bio\bio.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\bio\bio_mem.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\bio\connect.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\bio\fd.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\bio\file.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\bio\hexdump.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\bio\pair.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\bio\printf.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\bio\socket.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\bio\socket_helper.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\blake2\blake2.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\bn_extra\bn_asn1.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\bn_extra\convert.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\buf\buf.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\bytestring\asn1_compat.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\bytestring\ber.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\bytestring\cbb.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\bytestring\cbs.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\bytestring\unicode.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\chacha\chacha.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\cipher_extra\cipher_extra.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\cipher_extra\derive_key.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\cipher_extra\e_aesccm.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\cipher_extra\e_aesctrhmac.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\cipher_extra\e_aesgcmsiv.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\cipher_extra\e_chacha20poly1305.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\cipher_extra\e_null.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\cipher_extra\e_rc2.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\cipher_extra\e_rc4.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\cipher_extra\e_tls.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\cipher_extra\tls_cbc.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\cmac\cmac.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\conf\conf.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\cpu-aarch64-fuchsia.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\cpu-aarch64-linux.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\cpu-aarch64-win.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\cpu-arm-linux.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\cpu-arm.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\cpu-intel.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\cpu-ppc64le.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\crypto.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\curve25519\curve25519.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\curve25519\spake25519.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\dh_extra\dh_asn1.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\dh_extra\params.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\digest_extra\digest_extra.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\dsa\dsa.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\dsa\dsa_asn1.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\ec_extra\ec_asn1.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\ec_extra\ec_derive.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\ec_extra\hash_to_curve.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\ecdh_extra\ecdh_extra.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\ecdsa_extra\ecdsa_asn1.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\engine\engine.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\err\err.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\evp\digestsign.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\evp\evp.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\evp\evp_asn1.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\evp\evp_ctx.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\evp\p_dsa_asn1.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\evp\p_ec.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\evp\p_ec_asn1.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\evp\p_ed25519.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\evp\p_ed25519_asn1.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\evp\p_rsa.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\evp\p_rsa_asn1.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\evp\p_x25519.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\evp\p_x25519_asn1.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\evp\pbkdf.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\evp\print.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\evp\scrypt.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\evp\sign.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\ex_data.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\fipsmodule\bcm.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\fipsmodule\fips_shared_support.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\hkdf\hkdf.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\hpke\hpke.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\hrss\hrss.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\lhash\lhash.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\mem.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\obj\obj.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\obj\obj_xref.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\pem\pem_all.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\pem\pem_info.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\pem\pem_lib.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\pem\pem_oth.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\pem\pem_pk8.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\pem\pem_pkey.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\pem\pem_x509.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\pem\pem_xaux.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\pkcs7\pkcs7.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\pkcs7\pkcs7_x509.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\pkcs8\p5_pbev2.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\pkcs8\pkcs8.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\pkcs8\pkcs8_x509.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\poly1305\poly1305.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\poly1305\poly1305_arm.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\poly1305\poly1305_vec.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\pool\pool.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\rand_extra\deterministic.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\rand_extra\forkunsafe.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\rand_extra\fuchsia.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\rand_extra\passive.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\rand_extra\rand_extra.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\rand_extra\windows.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\rc4\rc4.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\refcount_c11.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\refcount_lock.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\rsa_extra\rsa_asn1.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\rsa_extra\rsa_print.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\siphash\siphash.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\stack\stack.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\thread.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\thread_none.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\thread_pthread.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\thread_win.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\trust_token\pmbtoken.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\trust_token\trust_token.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\trust_token\voprf.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\a_digest.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\a_sign.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\a_verify.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\algorithm.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\asn1_gen.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\by_dir.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\by_file.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\i2d_pr.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\name_print.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\rsa_pss.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\t_crl.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\t_req.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\t_x509.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\t_x509a.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\x509.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\x509_att.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\x509_cmp.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\x509_d2.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\x509_def.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\x509_ext.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\x509_lu.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\x509_obj.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\x509_req.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\x509_set.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\x509_trs.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\x509_txt.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\x509_v3.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\x509_vfy.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\x509_vpm.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\x509cset.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\x509name.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\x509rset.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\x509spki.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\x_algor.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\x_all.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\x_attrib.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\x_crl.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\x_exten.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\x_info.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\x_name.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\x_pkey.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\x_pubkey.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\x_req.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\x_sig.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\x_spki.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\x_val.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\x_x509.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509\x_x509a.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509v3\pcy_cache.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509v3\pcy_data.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509v3\pcy_lib.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509v3\pcy_map.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509v3\pcy_node.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509v3\pcy_tree.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509v3\v3_akey.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509v3\v3_akeya.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509v3\v3_alt.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509v3\v3_bcons.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509v3\v3_bitst.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509v3\v3_conf.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509v3\v3_cpols.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509v3\v3_crld.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509v3\v3_enum.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509v3\v3_extku.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509v3\v3_genn.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509v3\v3_ia5.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509v3\v3_info.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509v3\v3_int.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509v3\v3_lib.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509v3\v3_ncons.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509v3\v3_ocsp.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509v3\v3_pci.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509v3\v3_pcia.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509v3\v3_pcons.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509v3\v3_pmaps.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509v3\v3_prn.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509v3\v3_purp.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509v3\v3_skey.c" />
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\crypto\x509v3\v3_utl.c" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="E:\Toy_project\fengni\silent-speaker\target\debug\build\quiche-6a4455417317dc3a\out\build\ZERO_CHECK.vcxproj">
+      <Project>{0F6CB324-395B-3EB4-91DF-82404C41692D}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="C:\Program Files\CMake\share\cmake-4.2\Templates\MSBuild\nasm.targets" />
+  </ImportGroup>
+</Project>

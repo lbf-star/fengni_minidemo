@@ -1,0 +1,10 @@
+^E:\TOY_PROJECT\FENGNI\SILENT-SPEAKER\TARGET\DEBUG\BUILD\QUICHE-6A4455417317DC3A\OUT\BUILD\CMAKEFILES\94CAB309BDA786C499CD4B0421AB23CD\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/SoftwareInstallationFolder/Rust/cargo_home/registry/src/index.crates.io-1949cf8c6b5b557f/quiche-0.24.6/deps/boringssl -BE:/Toy_project/fengni/silent-speaker/target/debug/build/quiche-6a4455417317dc3a/out/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file E:/Toy_project/fengni/silent-speaker/target/debug/build/quiche-6a4455417317dc3a/out/build/BoringSSL.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

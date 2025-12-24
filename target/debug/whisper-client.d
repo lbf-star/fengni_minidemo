@@ -1,0 +1,1 @@
+E:\Toy_project\fengni\silent-speaker\target\debug\whisper-client.exe: E:\Toy_project\fengni\silent-speaker\build.rs E:\Toy_project\fengni\silent-speaker\src\client.rs E:\Toy_project\fengni\silent-speaker\src\lib.rs E:\Toy_project\fengni\silent-speaker\target\debug\build\silent-speaker-617b460d575bfa4b\out\whisper.rs E:\Toy_project\fengni\silent-speaker\whisper.proto

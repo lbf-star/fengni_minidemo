@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\ssl\bio_ssl.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\ssl\d1_both.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\ssl\d1_lib.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\ssl\d1_pkt.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\ssl\d1_srtp.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\ssl\dtls_method.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\ssl\dtls_record.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\ssl\encrypted_client_hello.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\ssl\extensions.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\ssl\handoff.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\ssl\handshake.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\ssl\handshake_client.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\ssl\handshake_server.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\ssl\s3_both.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\ssl\s3_lib.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\ssl\s3_pkt.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\ssl\ssl_aead_ctx.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\ssl\ssl_asn1.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\ssl\ssl_buffer.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\ssl\ssl_cert.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\ssl\ssl_cipher.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\ssl\ssl_file.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\ssl\ssl_key_share.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\ssl\ssl_lib.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\ssl\ssl_privkey.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\ssl\ssl_session.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\ssl\ssl_stat.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\ssl\ssl_transcript.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\ssl\ssl_versions.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\ssl\ssl_x509.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\ssl\t1_enc.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\ssl\tls13_both.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\ssl\tls13_client.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\ssl\tls13_enc.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\ssl\tls13_server.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\ssl\tls_method.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\src\ssl\tls_record.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\quiche-0.24.6\deps\boringssl\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{C7371A69-8C28-359F-9C2C-EC118EF2C752}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

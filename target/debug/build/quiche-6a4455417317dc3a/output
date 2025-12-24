@@ -1,0 +1,367 @@
+CMAKE_TOOLCHAIN_FILE_x86_64-pc-windows-msvc = None
+CMAKE_TOOLCHAIN_FILE_x86_64_pc_windows_msvc = None
+HOST_CMAKE_TOOLCHAIN_FILE = None
+CMAKE_TOOLCHAIN_FILE = None
+CMAKE_GENERATOR_x86_64-pc-windows-msvc = None
+CMAKE_GENERATOR_x86_64_pc_windows_msvc = None
+HOST_CMAKE_GENERATOR = None
+CMAKE_GENERATOR = None
+CMAKE_PREFIX_PATH_x86_64-pc-windows-msvc = None
+CMAKE_PREFIX_PATH_x86_64_pc_windows_msvc = None
+HOST_CMAKE_PREFIX_PATH = None
+CMAKE_PREFIX_PATH = None
+CMAKE_x86_64-pc-windows-msvc = None
+CMAKE_x86_64_pc_windows_msvc = None
+HOST_CMAKE = None
+CMAKE = None
+-- Selecting Windows SDK version 10.0.22621.0 to target Windows 10.0.26100.
+-- The C compiler identification is MSVC 19.41.34120.0
+-- The CXX compiler identification is MSVC 19.41.34120.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.41.34120/bin/Hostx64/x64/cl.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.41.34120/bin/Hostx64/x64/cl.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- The ASM_NASM compiler identification is NASM
+-- Found assembler: C:/Program Files/NASM/nasm.exe
+-- Configuring done (12.8s)
+-- Generating done (0.3s)
+-- Build files have been written to: E:/Toy_project/fengni/silent-speaker/target/debug/build/quiche-6a4455417317dc3a/out/build
+适用于 .NET Framework MSBuild 版本 17.11.9+a69bbaaf5
+
+  1>Checking Build System
+  Building Custom Rule D:/SoftwareInstallationFolder/Rust/cargo_home/registry/src/index.crates.io-1949cf8c6b5b557f/quiche-0.24.6/deps/boringssl/CMakeLists.txt
+  bio_ssl.cc
+  d1_both.cc
+  d1_lib.cc
+  d1_pkt.cc
+  d1_srtp.cc
+  dtls_method.cc
+  dtls_record.cc
+  encrypted_client_hello.cc
+  extensions.cc
+  handoff.cc
+  handshake.cc
+  handshake_client.cc
+  handshake_server.cc
+  s3_both.cc
+  s3_lib.cc
+  s3_pkt.cc
+  ssl_aead_ctx.cc
+  ssl_asn1.cc
+  ssl_buffer.cc
+  ssl_cert.cc
+  正在生成代码...
+  正在编译...
+  ssl_cipher.cc
+  ssl_file.cc
+  ssl_key_share.cc
+  ssl_lib.cc
+  ssl_privkey.cc
+  ssl_session.cc
+  ssl_stat.cc
+  ssl_transcript.cc
+  ssl_versions.cc
+  ssl_x509.cc
+  t1_enc.cc
+  tls13_both.cc
+  tls13_client.cc
+  tls13_enc.cc
+  tls13_server.cc
+  tls_method.cc
+  tls_record.cc
+  正在生成代码...
+  ssl.vcxproj -> E:\Toy_project\fengni\silent-speaker\target\debug\build\quiche-6a4455417317dc3a\out\build\Debug\ssl.lib
+cargo:root=E:\Toy_project\fengni\silent-speaker\target\debug\build\quiche-6a4455417317dc3a\out
+-- Selecting Windows SDK version 10.0.22621.0 to target Windows 10.0.26100.
+-- Configuring done (0.0s)
+-- Generating done (0.1s)
+-- Build files have been written to: E:/Toy_project/fengni/silent-speaker/target/debug/build/quiche-6a4455417317dc3a/out/build
+适用于 .NET Framework MSBuild 版本 17.11.9+a69bbaaf5
+
+  1>Checking Build System
+  Building Custom Rule D:/SoftwareInstallationFolder/Rust/cargo_home/registry/src/index.crates.io-1949cf8c6b5b557f/quiche-0.24.6/deps/boringssl/CMakeLists.txt
+  Assembling chacha-x86_64.asm
+  Assembling aes128gcmsiv-x86_64.asm
+  Assembling chacha20_poly1305_x86_64.asm
+  Assembling aesni-gcm-x86_64.asm
+  Assembling aesni-x86_64.asm
+  Assembling ghash-ssse3-x86_64.asm
+  Assembling ghash-x86_64.asm
+  Assembling md5-x86_64.asm
+  Assembling p256-x86_64-asm.asm
+  Assembling p256_beeu-x86_64-asm.asm
+  Assembling rdrand-x86_64.asm
+  Assembling rsaz-avx2.asm
+  Assembling sha1-x86_64.asm
+  Assembling sha256-x86_64.asm
+  Assembling sha512-x86_64.asm
+  Assembling vpaes-x86_64.asm
+  Assembling x86_64-mont.asm
+  Assembling x86_64-mont5.asm
+  Assembling trampoline-x86_64.asm
+  err_data.c
+  a_bitstr.c
+  a_bool.c
+  a_d2i_fp.c
+  a_dup.c
+  a_enum.c
+  a_gentm.c
+  a_i2d_fp.c
+  a_int.c
+  a_mbstr.c
+  a_object.c
+  a_octet.c
+  a_print.c
+  a_strex.c
+  a_strnid.c
+  a_time.c
+  a_type.c
+  a_utctm.c
+  a_utf8.c
+  asn1_lib.c
+  正在生成代码...
+  正在编译...
+  asn1_par.c
+  asn_pack.c
+  f_enum.c
+  f_int.c
+  f_string.c
+  tasn_dec.c
+  tasn_enc.c
+  tasn_fre.c
+  tasn_new.c
+  tasn_typ.c
+  tasn_utl.c
+  time_support.c
+  base64.c
+  bio.c
+  bio_mem.c
+  connect.c
+  fd.c
+  file.c
+  hexdump.c
+  pair.c
+  正在生成代码...
+  正在编译...
+  printf.c
+  socket.c
+  socket_helper.c
+  blake2.c
+  bn_asn1.c
+  convert.c
+  buf.c
+  asn1_compat.c
+  ber.c
+  cbb.c
+  cbs.c
+  unicode.c
+  chacha.c
+  cipher_extra.c
+  derive_key.c
+  e_aesccm.c
+  e_aesctrhmac.c
+  e_aesgcmsiv.c
+  e_chacha20poly1305.c
+  e_null.c
+  正在生成代码...
+  正在编译...
+  e_rc2.c
+  e_rc4.c
+  e_tls.c
+  tls_cbc.c
+  cmac.c
+  conf.c
+  cpu-aarch64-fuchsia.c
+  cpu-aarch64-linux.c
+  cpu-aarch64-win.c
+  cpu-arm-linux.c
+  cpu-arm.c
+  cpu-intel.c
+  cpu-ppc64le.c
+  crypto.c
+  curve25519.c
+  spake25519.c
+  dh_asn1.c
+  params.c
+  digest_extra.c
+  dsa.c
+  正在生成代码...
+  正在编译...
+  dsa_asn1.c
+  ec_asn1.c
+  ec_derive.c
+  hash_to_curve.c
+  ecdh_extra.c
+  ecdsa_asn1.c
+  engine.c
+  err.c
+  digestsign.c
+  evp.c
+  evp_asn1.c
+  evp_ctx.c
+  p_dsa_asn1.c
+  p_ec.c
+  p_ec_asn1.c
+  p_ed25519.c
+  p_ed25519_asn1.c
+  p_rsa.c
+  p_rsa_asn1.c
+  p_x25519.c
+  正在生成代码...
+  正在编译...
+  p_x25519_asn1.c
+  pbkdf.c
+  print.c
+  scrypt.c
+  sign.c
+  ex_data.c
+  bcm.c
+  fips_shared_support.c
+  hkdf.c
+  hpke.c
+  hrss.c
+  lhash.c
+  mem.c
+  obj.c
+  obj_xref.c
+  pem_all.c
+  pem_info.c
+  pem_lib.c
+  pem_oth.c
+  pem_pk8.c
+  正在生成代码...
+  正在编译...
+  pem_pkey.c
+  pem_x509.c
+  pem_xaux.c
+  pkcs7.c
+  pkcs7_x509.c
+  p5_pbev2.c
+  pkcs8.c
+  pkcs8_x509.c
+  poly1305.c
+  poly1305_arm.c
+  poly1305_vec.c
+  pool.c
+  deterministic.c
+  forkunsafe.c
+  fuchsia.c
+  passive.c
+  rand_extra.c
+  windows.c
+  rc4.c
+  refcount_c11.c
+  正在生成代码...
+  正在编译...
+  refcount_lock.c
+  rsa_asn1.c
+  rsa_print.c
+  siphash.c
+  stack.c
+  thread.c
+  thread_none.c
+  thread_pthread.c
+  thread_win.c
+  pmbtoken.c
+  trust_token.c
+  voprf.c
+  a_digest.c
+  a_sign.c
+  a_verify.c
+  algorithm.c
+  asn1_gen.c
+  by_dir.c
+  by_file.c
+  i2d_pr.c
+  正在生成代码...
+  正在编译...
+  name_print.c
+  rsa_pss.c
+  t_crl.c
+  t_req.c
+  t_x509.c
+  t_x509a.c
+  x509.c
+  x509_att.c
+  x509_cmp.c
+  x509_d2.c
+  x509_def.c
+  x509_ext.c
+  x509_lu.c
+  x509_obj.c
+  x509_req.c
+  x509_set.c
+  x509_trs.c
+  x509_txt.c
+  x509_v3.c
+  x509_vfy.c
+  正在生成代码...
+  正在编译...
+  x509_vpm.c
+  x509cset.c
+  x509name.c
+  x509rset.c
+  x509spki.c
+  x_algor.c
+  x_all.c
+  x_attrib.c
+  x_crl.c
+  x_exten.c
+  x_info.c
+  x_name.c
+  x_pkey.c
+  x_pubkey.c
+  x_req.c
+  x_sig.c
+  x_spki.c
+  x_val.c
+  x_x509.c
+  x_x509a.c
+  正在生成代码...
+  正在编译...
+  pcy_cache.c
+  pcy_data.c
+  pcy_lib.c
+  pcy_map.c
+  pcy_node.c
+  pcy_tree.c
+  v3_akey.c
+  v3_akeya.c
+  v3_alt.c
+  v3_bcons.c
+  v3_bitst.c
+  v3_conf.c
+  v3_cpols.c
+  v3_crld.c
+  v3_enum.c
+  v3_extku.c
+  v3_genn.c
+  v3_ia5.c
+  v3_info.c
+  v3_int.c
+  正在生成代码...
+  正在编译...
+  v3_lib.c
+  v3_ncons.c
+  v3_ocsp.c
+  v3_pci.c
+  v3_pcia.c
+  v3_pcons.c
+  v3_pmaps.c
+  v3_prn.c
+  v3_purp.c
+  v3_skey.c
+  v3_utl.c
+  正在生成代码...
+  crypto.vcxproj -> E:\Toy_project\fengni\silent-speaker\target\debug\build\quiche-6a4455417317dc3a\out\build\Debug\crypto.lib
+cargo:root=E:\Toy_project\fengni\silent-speaker\target\debug\build\quiche-6a4455417317dc3a\out
+cargo:rustc-link-arg=-Wl,-rpath,E:\Toy_project\fengni\silent-speaker\target\debug\build\quiche-6a4455417317dc3a\out
+cargo:rustc-link-search=native=E:\Toy_project\fengni\silent-speaker\target\debug\build\quiche-6a4455417317dc3a\out/build/Debug
+cargo:rustc-link-lib=static=ssl
+cargo:rustc-link-lib=static=crypto
