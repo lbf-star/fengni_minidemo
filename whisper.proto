@@ -15,7 +15,7 @@ message Whisper {
     // 使用16字节的UUID，这是唯一ID的标准长度
     bytes id = 1;          // 长度严格为16字节，用于去重和追踪
 
-    // 耳语的文本内容，UTF-8编码
+    // whisper的文本内容，UTF-8编码
     string content = 2;
 
     // 使用固定64位存储纳秒级时间戳，编码/解码最快

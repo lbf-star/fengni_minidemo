@@ -1,0 +1,1 @@
+E:\Toy_project\fengni\silent-speaker\target\debug\libsilent_speaker.rlib: E:\Toy_project\fengni\silent-speaker\build.rs E:\Toy_project\fengni\silent-speaker\src\lib.rs E:\Toy_project\fengni\silent-speaker\src\logging.rs E:\Toy_project\fengni\silent-speaker\target\debug\build\silent-speaker-f0dfeaf38cded3fe\out\whisper.rs E:\Toy_project\fengni\silent-speaker\whisper.proto

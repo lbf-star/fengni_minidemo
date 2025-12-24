@@ -22,7 +22,10 @@ quiche = "0.24.6"  # QUIC库
 prost = "0.14.1"  # Protobuf
 prost-types = "0.14.1"  # Protobuf
 log = "0.4"  # 日志
-env_logger = "0.11.8"  # 保留，方便看日志
+
+tracing = "0.1.44"  # 应用级跟踪日志
+tracing-subscriber = "0.3.22" 
+
 ring = "0.17.14"  # quiche默认使用-随机数生成
 mio ={ version = "1.1.1", features = ["os-poll", "net"]}  # 升级为1.x版本启用特性支持-quiche默认使用-时间循环
 uuid ={ version = "1.19.0", features = ["v4"]}  # 生成UUID作为消息唯一标识符（16字节）

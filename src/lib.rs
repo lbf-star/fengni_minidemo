@@ -10,3 +10,6 @@ pub use whisper::*;
 
 /// 库版本信息
 pub const VERSION: &str = env!("CARGO_PKG_VERSION");
+
+// 日志系统
+pub mod logging;

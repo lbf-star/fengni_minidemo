@@ -1,5 +1,5 @@
-#[macro_use]
-extern crate log;
+use tracing::{info, error, warn, debug};
+use silent_speaker::logging::init;
 
 use ring::rand::*;
 
@@ -11,10 +11,8 @@ const MAX_DATAGRAM_SIZE: usize = 1350;
 const HTTP_REQ_STREAM_ID: u64 = 4;
 
 fn main() {
-
-    // 只在 debug 编译时初始化日志
-    #[cfg(debug_assertions)]
-    env_logger::init();
+    // 日志系统初始化
+    init();
 
     let mut buf = [0; 65535];
     let mut out = [0; MAX_DATAGRAM_SIZE];
@@ -24,8 +22,8 @@ fn main() {
     let cmd = &args.next().unwrap();
 
     if args.len() != 1 {
-        println!("Usage: {cmd} URL");
-        println!("\nSee tools/apps/ for more complete implementations.");
+        println!("用法: {cmd} URL");
+        println!("\n更完整的实现请参见工具/应用。");
         return;
     }
 
@@ -89,7 +87,7 @@ fn main() {
             .unwrap();
 
     info!(
-        "connecting to {:} from {:} with scid {}",
+        "连接到 {:} 从 {:} 使用scid {}",
         peer_addr,
         socket.local_addr().unwrap(),
         hex_dump(&scid)
@@ -99,14 +97,14 @@ fn main() {
 
     while let Err(e) = socket.send_to(&out[..write], send_info.to) {
         if e.kind() == std::io::ErrorKind::WouldBlock {
-            debug!("send() would block");
+            debug!("发送操作将阻塞");
             continue;
         }
 
-        panic!("send() failed: {e:?}");
+        panic!("发送操作失败: {e:?}");
     }
 
-    debug!("written {write}");
+    debug!("被写入 {write}");
 
     let req_start = std::time::Instant::now();
     let mut req_sent = false;
@@ -121,7 +119,7 @@ fn main() {
             // has expired, so handle it without attempting to read packets. We
             // will then proceed with the send loop.
             if events.is_empty() {
-                debug!("timed out");
+                debug!("等待超时");
 
                 conn.on_timeout();
                 break 'read;
@@ -134,15 +132,15 @@ fn main() {
                     // There are no more UDP packets to read, so end the read
                     // loop.
                     if e.kind() == std::io::ErrorKind::WouldBlock {
-                        debug!("recv() would block");
+                        debug!("接受操作将阻塞");
                         break 'read;
                     }
 
-                    panic!("recv() failed: {e:?}");
+                    panic!("接受操作失败: {e:?}");
                 },
             };
 
-            debug!("got {len} bytes");
+            debug!("获得 {len} 字节");
 
             let recv_info = quiche::RecvInfo {
                 to: socket.local_addr().unwrap(),
@@ -154,29 +152,28 @@ fn main() {
                 Ok(v) => v,
 
                 Err(e) => {
-                    error!("recv failed: {e:?}");
+                    error!("接受操作失败: {e:?}");
                     continue 'read;
                 },
             };
 
-            debug!("processed {read} bytes");
+            debug!("已处理 {read} 字节");
         }
 
-        debug!("done reading");
+        debug!("读取完成");
 
         if conn.is_closed() {
-            info!("connection closed, {:?}", conn.stats());
+            info!("连接已关闭, {:?}", conn.stats());
             break;
         }
 
-        // Send an HTTP request as soon as the connection is established.
         if conn.is_established() && !req_sent {
-            info!("sending HTTP request for {}", url.path());
+            info!("正在发送消息 {}", url.path());
 
           // 创建 Whisper 消息
           let mut whisper = Whisper::default();
           whisper.id = uuid::Uuid::new_v4().as_bytes().to_vec();
-          whisper.content = "Test message from client".to_string();
+          whisper.content = "测试消息发送".to_string();
           whisper.timestamp_ns = std::time::SystemTime::now()
               .duration_since(std::time::UNIX_EPOCH)
               .unwrap()
@@ -194,12 +191,12 @@ fn main() {
         // Process all readable streams.
         for s in conn.readable() {
             while let Ok((read, fin)) = conn.stream_recv(s, &mut buf) {
-                debug!("received {read} bytes");
+                debug!("已接收 {read} 字节");
 
                 let stream_buf = &buf[..read];
 
                 debug!(
-                    "stream {} has {} bytes (fin? {})",
+                    "流 {} 有 {} 字节 (结束fin? {})",
                     s,
                     stream_buf.len(),
                     fin
@@ -208,8 +205,8 @@ fn main() {
                 // 尝试解析为 Whisper 消息，如果失败则作为普通文本处理
                 match Whisper::decode(stream_buf) {
                     Ok(whisper) => {
-                        info!("Received Whisper response: {}", whisper.content);
-                        print!("Server ACK: {}", whisper.content);
+                        info!("接收到whisper响应: {}", whisper.content);
+                        print!("服务确认ACK: {}", whisper.content);
                     }
                     Err(_) => {
                         // 如果不是 Protobuf，可能是普通文本确认
@@ -222,7 +219,7 @@ fn main() {
                 // 服务器报告没有更多数据发送，我们已收到完整响应。关闭连接。
                 if s == HTTP_REQ_STREAM_ID && fin {
                     info!(
-                        "response received in {:?}, closing...",
+                        "接受的响应位于{:?}, 正在关闭...",
                         req_start.elapsed()
                     );
 
@@ -238,12 +235,12 @@ fn main() {
                 Ok(v) => v,
 
                 Err(quiche::Error::Done) => {
-                    debug!("done writing");
+                    debug!("写入完成");
                     break;
                 },
 
                 Err(e) => {
-                    error!("send failed: {e:?}");
+                    error!("发送操作失败: {e:?}");
 
                     conn.close(false, 0x1, b"fail").ok();
                     break;
@@ -252,18 +249,18 @@ fn main() {
 
             if let Err(e) = socket.send_to(&out[..write], send_info.to) {
                 if e.kind() == std::io::ErrorKind::WouldBlock {
-                    debug!("send() would block");
+                    debug!("发送操作将阻塞");
                     break;
                 }
 
-                panic!("send() failed: {e:?}");
+                panic!("发送操作失败: {e:?}");
             }
 
-            debug!("written {write}");
+            debug!("已写入 {write}");
         }
 
         if conn.is_closed() {
-            info!("connection closed, {:?}", conn.stats());
+            info!("连接已关闭, {:?}", conn.stats());
             break;
         }
     }

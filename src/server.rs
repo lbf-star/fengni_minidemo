@@ -1,5 +1,5 @@
-#[macro_use]
-extern crate log;
+use tracing::{info, error, warn, debug, trace};
+use silent_speaker::logging::init;
 
 use std::net;
 
@@ -27,10 +27,8 @@ struct Client {
 type ClientMap = HashMap<quiche::ConnectionId<'static>, Client>;
 
 fn main() {
-    
-    // 只在 debug 编译时初始化日志
-    #[cfg(debug_assertions)]
-    env_logger::init();
+    // 日志系统初始化
+    init();
     
     let mut buf = [0; 65535];
     let mut out = [0; MAX_DATAGRAM_SIZE];
@@ -40,8 +38,8 @@ fn main() {
     let cmd = &args.next().unwrap();
 
     if args.len() != 0 {
-        println!("Usage: {cmd}");
-        println!("\nSee tools/apps/ for more complete implementations.");
+        println!("用法: {cmd}");
+        println!("\n更完整的实现请参见工具/应用。");
         return;
     }
 
@@ -105,7 +103,7 @@ fn main() {
             // has expired, so handle it without attempting to read packets. We
             // will then proceed with the send loop.
             if events.is_empty() {
-                debug!("timed out");
+                debug!("等待超时");
 
                 clients.values_mut().for_each(|c| c.conn.on_timeout());
 
@@ -119,15 +117,15 @@ fn main() {
                     // There are no more UDP packets to read, so end the read
                     // loop.
                     if e.kind() == std::io::ErrorKind::WouldBlock {
-                        debug!("recv() would block");
+                        debug!("接收操作将阻塞");
                         break 'read;
                     }
 
-                    panic!("recv() failed: {e:?}");
+                    panic!("接受操作失败: {e:?}");
                 },
             };
 
-            debug!("got {len} bytes");
+            debug!("收到 {len} 字节");
 
             let pkt_buf = &mut buf[..len];
 
@@ -139,12 +137,12 @@ fn main() {
                 Ok(v) => v,
 
                 Err(e) => {
-                    error!("Parsing packet header failed: {e:?}");
+                    error!("解析数据包头部失败: {e:?}");
                     continue 'read;
                 },
             };
 
-            trace!("got packet {hdr:?}");
+            trace!("获得数据包 {hdr:?}");
 
             let conn_id = ring::hmac::sign(&conn_id_seed, &hdr.dcid);
             let conn_id = &conn_id.as_ref()[..quiche::MAX_CONN_ID_LEN];
@@ -156,12 +154,12 @@ fn main() {
                 !clients.contains_key(&conn_id)
             {
                 if hdr.ty != quiche::Type::Initial {
-                    error!("Packet is not Initial");
+                    error!("数据包不是初始包");
                     continue 'read;
                 }
 
                 if !quiche::version_is_supported(hdr.version) {
-                    warn!("Doing version negotiation");
+                    warn!("正在进行版本协商");
 
                     let len =
                         quiche::negotiate_version(&hdr.scid, &hdr.dcid, &mut out)
@@ -171,11 +169,11 @@ fn main() {
 
                     if let Err(e) = socket.send_to(out, from) {
                         if e.kind() == std::io::ErrorKind::WouldBlock {
-                            debug!("send() would block");
+                            debug!("发送操作将阻塞");
                             break;
                         }
 
-                        panic!("send() failed: {e:?}");
+                        panic!("发送操作失败: {e:?}");
                     }
                     continue 'read;
                 }
@@ -190,7 +188,7 @@ fn main() {
 
                 // Do stateless retry if the client didn't send a token.
                 if token.is_empty() {
-                    warn!("Doing stateless retry");
+                    warn!("正在执行无状态重试");
 
                     let new_token = mint_token(&hdr, &from);
 
@@ -208,11 +206,11 @@ fn main() {
 
                     if let Err(e) = socket.send_to(out, from) {
                         if e.kind() == std::io::ErrorKind::WouldBlock {
-                            debug!("send() would block");
+                            debug!("发送操作将阻塞");
                             break;
                         }
 
-                        panic!("send() failed: {e:?}");
+                        panic!("发送操作失败: {e:?}");
                     }
                     continue 'read;
                 }
@@ -222,12 +220,12 @@ fn main() {
                 // The token was not valid, meaning the retry failed, so
                 // drop the packet.
                 if odcid.is_none() {
-                    error!("Invalid address validation token");
+                    error!("地址验证令牌无效");
                     continue 'read;
                 }
 
                 if scid.len() != hdr.dcid.len() {
-                    error!("Invalid destination connection ID");
+                    error!("目标连接ID无效");
                     continue 'read;
                 }
 
@@ -235,7 +233,7 @@ fn main() {
                 // instead of changing it again.
                 let scid = hdr.dcid.clone();
 
-                debug!("New connection: dcid={:?} scid={:?}", hdr.dcid, scid);
+                debug!("新连接建立: dcid={:?} scid={:?}", hdr.dcid, scid);
 
                 let conn = quiche::accept(
                     &scid,
@@ -272,12 +270,12 @@ fn main() {
                 Ok(v) => v,
 
                 Err(e) => {
-                    error!("{} recv failed: {:?}", client.conn.trace_id(), e);
+                    error!("{} 接收失败: {:?}", client.conn.trace_id(), e);
                     continue 'read;
                 },
             };
 
-            debug!("{} processed {} bytes", client.conn.trace_id(), read);
+            debug!("{} 已处理 {} 字节", client.conn.trace_id(), read);
 
             if client.conn.is_in_early_data() || client.conn.is_established() {
                 // Handle writable streams.
@@ -291,7 +289,7 @@ fn main() {
                         client.conn.stream_recv(s, &mut buf)
                     {
                         debug!(
-                            "{} received {} bytes",
+                            "{} 已接收 {} 字节",
                             client.conn.trace_id(),
                             read
                         );
@@ -299,7 +297,7 @@ fn main() {
                         let stream_buf = &buf[..read];
 
                         debug!(
-                            "{} stream {} has {} bytes (fin? {})",
+                            "{} 流 {} 有 {} 字节 (结束fin? {})",
                             client.conn.trace_id(),
                             s,
                             stream_buf.len(),
@@ -321,12 +319,12 @@ fn main() {
                     Ok(v) => v,
 
                     Err(quiche::Error::Done) => {
-                        debug!("{} done writing", client.conn.trace_id());
+                        debug!("{} 写入完成", client.conn.trace_id());
                         break;
                     },
 
                     Err(e) => {
-                        error!("{} send failed: {:?}", client.conn.trace_id(), e);
+                        error!("{} 发送失败: {:?}", client.conn.trace_id(), e);
 
                         client.conn.close(false, 0x1, b"fail").ok();
                         break;
@@ -335,24 +333,24 @@ fn main() {
 
                 if let Err(e) = socket.send_to(&out[..write], send_info.to) {
                     if e.kind() == std::io::ErrorKind::WouldBlock {
-                        debug!("send() would block");
+                        debug!("发送操作将阻塞");
                         break;
                     }
 
-                    panic!("send() failed: {e:?}");
+                    panic!("发送操作失败: {e:?}");
                 }
 
-                debug!("{} written {} bytes", client.conn.trace_id(), write);
+                debug!("{} 已写入 {} 字节", client.conn.trace_id(), write);
             }
         }
 
         // Garbage collect closed connections.
         clients.retain(|_, ref mut c| {
-            debug!("Collecting garbage");
+            debug!("正在清理垃圾连接");
 
             if c.conn.is_closed() {
                 info!(
-                    "{} connection collected {:?}",
+                    "{} 已收集连接 {:?}",
                     c.conn.trace_id(),
                     c.conn.stats()
                 );
@@ -427,13 +425,13 @@ fn handle_stream(client: &mut Client, stream_id: u64, buf: &[u8]) {
     match Whisper::decode(buf) {
         Ok(whisper) => {
             info!(
-                "{} received Whisper message on stream {}",
+                "{} 收到whisper格式消息，流ID {}",
                 conn.trace_id(),
                 stream_id
             );
             
             info!(
-                "Message ID: {:?}, Content: {}, Priority: {:?}",
+                "消息ID: {:?}, 内容: {}, 优先级: {:?}",
                 hex::encode(&whisper.id),
                 whisper.content,
                 whisper.priority()
@@ -441,22 +439,22 @@ fn handle_stream(client: &mut Client, stream_id: u64, buf: &[u8]) {
             
             // 在这里处理消息：打印、转发、存储等
             // 示例：发送简单的确认回执
-            let ack = format!("ACK: Received '{}'", whisper.content);
+            let ack = format!("确认ACK: 收到 '{}'", whisper.content);
             match conn.stream_send(stream_id, ack.as_bytes(), false) {
-                Ok(_) => debug!("{} sent ack", conn.trace_id()),
-                Err(e) => error!("{} failed to send ack: {:?}", conn.trace_id(), e),
+                Ok(_) => debug!("{} 已发送ACK", conn.trace_id()),
+                Err(e) => error!("{} 发送ACK失败: {:?}", conn.trace_id(), e),
             }
         }
         Err(e) => {
             error!(
-                "{} failed to decode Whisper message on stream {}: {:?}",
+                "{} 解析whisper格式消息失败->流{}: {:?}",
                 conn.trace_id(),
                 stream_id,
                 e
             );
             
             // 发送错误回执
-            let error_msg = format!("ERROR: Invalid Protobuf format");
+            let error_msg = format!("错误：无效的 PTOB 格式");
             let _ = conn.stream_send(stream_id, error_msg.as_bytes(), true);
         }
     }
@@ -466,7 +464,7 @@ fn handle_stream(client: &mut Client, stream_id: u64, buf: &[u8]) {
 fn handle_writable(client: &mut Client, stream_id: u64) {
     let conn = &mut client.conn;
 
-    debug!("{} stream {} is writable", conn.trace_id(), stream_id);
+    debug!("{} 流 {} 可写入", conn.trace_id(), stream_id);
 
     if !client.partial_responses.contains_key(&stream_id) {
         return;
@@ -483,7 +481,7 @@ fn handle_writable(client: &mut Client, stream_id: u64) {
         Err(e) => {
             client.partial_responses.remove(&stream_id);
 
-            error!("{} stream send failed {:?}", conn.trace_id(), e);
+            error!("{} 流发送失败 {:?}", conn.trace_id(), e);
             return;
         },
     };
