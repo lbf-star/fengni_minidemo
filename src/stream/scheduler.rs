@@ -263,6 +263,19 @@ impl StreamScheduler {
             .or_insert_with(VecDeque::new)
             .push_front(task); // 放回队列前面
     }
+
+     /// 获取流池的只读引用（用于外部检查流可用性）
+    pub fn get_pool(&self) -> &StreamPool {
+        &self.pool
+    }
+    
+    /// 判断流是否正在使用中
+    pub fn is_stream_in_use(&self, stream_id: u64) -> bool {
+        // 检查流池中该流的状态
+        // 注意：这是一个简化的检查，实际需要更复杂的逻辑
+        // 这里返回false表示假设流可用
+        false
+    }
 }
 
 /// 调度器统计信息
@@ -274,6 +287,6 @@ pub struct SchedulerStats {
 }
 
 /// 判断优先级是否为高优先级
-fn is_high_priority(priority: Priority) -> bool {
+pub fn is_high_priority(priority: Priority) -> bool {
     matches!(priority, Priority::High | Priority::Urgent)
 }
