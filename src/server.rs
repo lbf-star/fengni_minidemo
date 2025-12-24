@@ -636,11 +636,12 @@ fn process_single_message(
                     Ok(Some(recovered_message)) => {
                         // 重要：成功从FEC块中恢复出原始数据！
                         info!(
-                            "{} FEC会话 {} 恢复成功！使用 {}/{} 个块，原始数据: {}",
+                            "{} FEC会话 {} 恢复成功！使用 {}/{} 个块，数据长度: {} 字节，内容: {}",
                             conn.trace_id(),
                             recovered_message.session_id,
                             recovered_message.blocks_used,
                             recovered_message.blocks_total,
+                            recovered_message.original_data.len(),  // 添加数据长度
                             String::from_utf8_lossy(&recovered_message.original_data)
                         );
                         

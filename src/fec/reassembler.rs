@@ -482,55 +482,104 @@ impl FECReassembler {
     }
     
     /// 静态解码方法（无状态，避免借用冲突）
-    fn decode_fec_data(
-        session_id: Uuid,
-        received_blocks: &HashMap<u32, Vec<u8>>,
-        k: usize,
-        m: usize,
-    ) -> Result<Vec<u8>, String> {
-        // 创建Reed-Solomon编解码器
-        let rs = ReedSolomon::new(k, m)
-            .map_err(|e| format!("创建ReedSolomon失败: {}", e))?;
-        
-        // 准备数据片
-        let total_shards = k + m;
-        let mut shards: Vec<Option<Vec<u8>>> = vec![None; total_shards];
-        
-        // 填充数据
-        for (&index, data) in received_blocks {
-            if (index as usize) < total_shards {
-                shards[index as usize] = Some(data.clone());
-            } else {
-                return Err(format!("无效块索引: {}", index));
-            }
+fn decode_fec_data(
+    session_id: Uuid,
+    received_blocks: &HashMap<u32, Vec<u8>>,
+    k: usize,
+    m: usize,
+) -> Result<Vec<u8>, String> {
+    // 创建Reed-Solomon编解码器
+    let rs = ReedSolomon::new(k, m)
+        .map_err(|e| format!("创建ReedSolomon失败: {}", e))?;
+    
+    // 准备数据片
+    let total_shards = k + m;
+    let mut shards: Vec<Option<Vec<u8>>> = vec![None; total_shards];
+    
+    // 填充数据
+    for (&index, data) in received_blocks {
+        if (index as usize) < total_shards {
+            shards[index as usize] = Some(data.clone());
+        } else {
+            return Err(format!("无效块索引: {}", index));
         }
-        
-        // 检查数据量
-        let total_received = shards.iter().filter(|s| s.is_some()).count();
-        if total_received < k {
-            return Err(format!("数据不足: {}/{}", total_received, k));
-        }
-        
-        // 解码
-        rs.reconstruct(&mut shards)
-            .map_err(|e| format!("ReedSolomon恢复失败: {}", e))?;
-        
-        // 组合数据
-        let mut original_data = Vec::new();
-        for i in 0..k {
-            if let Some(shard) = &shards[i] {
-                original_data.extend_from_slice(shard);
-            } else {
-                return Err(format!("恢复后数据片{}缺失", i));
-            }
-        }
-        
-        if original_data.is_empty() {
-            return Err("恢复的数据为空".to_string());
-        }
-        
-        Ok(original_data)
     }
+    
+    // 检查数据量
+    let total_received = shards.iter().filter(|s| s.is_some()).count();
+    if total_received < k {
+        return Err(format!("数据不足: {}/{}", total_received, k));
+    }
+    
+    // 检查所有块大小是否一致
+    let mut block_size = None;
+    for shard in &shards {
+        if let Some(data) = shard {
+            if let Some(size) = block_size {
+                if data.len() != size {
+                    return Err(format!("块大小不一致: 期望{}字节, 实际{}字节", size, data.len()));
+                }
+            } else {
+                block_size = Some(data.len());
+            }
+        }
+    }
+    
+    let block_size = block_size.ok_or("无有效数据块")?;
+    debug!("FEC解码: 块大小={}字节, 收到{}/{}个块", block_size, total_received, total_shards);
+    
+    // 解码
+    rs.reconstruct(&mut shards)
+        .map_err(|e| format!("ReedSolomon恢复失败: {}", e))?;
+    
+    // 组合数据（前k个块）
+    let mut reconstructed = Vec::with_capacity(k * block_size);
+    for i in 0..k {
+        if let Some(shard) = &shards[i] {
+            reconstructed.extend_from_slice(shard);
+        } else {
+            return Err(format!("恢复后数据片{}缺失", i));
+        }
+    }
+    
+    // 提取实际数据（去除填充和长度前缀）
+    if reconstructed.len() < 4 {
+        return Err(format!("恢复的数据太短: {}字节", reconstructed.len()));
+    }
+    
+    // 读取长度前缀
+    let data_len_bytes = &reconstructed[0..4];
+    let data_len = u32::from_le_bytes([
+        data_len_bytes[0], 
+        data_len_bytes[1], 
+        data_len_bytes[2], 
+        data_len_bytes[3]
+    ]) as usize;
+    
+    // 验证长度
+    if data_len == 0 {
+        return Err("长度前缀指示数据长度为0".to_string());
+    }
+    
+    if 4 + data_len > reconstructed.len() {
+        return Err(format!(
+            "数据长度无效: 前缀指示{}字节, 但总数据只有{}字节",
+            data_len, reconstructed.len() - 4
+        ));
+    }
+    
+    // 提取实际数据（跳过4字节长度前缀）
+    let original_data = reconstructed[4..4 + data_len].to_vec();
+    
+    debug!("FEC解码成功: 原始数据长度={}字节, 恢复数据长度={}字节", 
+        data_len, original_data.len());
+    
+    if original_data.is_empty() {
+        return Err("恢复的实际数据为空".to_string());
+    }
+    
+    Ok(original_data)
+}
     
     /// 清理超时会话
     pub fn cleanup_timeout_sessions(&mut self) {

@@ -297,6 +297,8 @@ fn send_critical_message_with_framing(
     message: &str,
 ) -> Result<(), String> {
     info!("发送关键信令: {}", message); 
+    let message_bytes = message.as_bytes();
+    info!("发送关键信令: '{}', 字节长度: {}", message, message_bytes.len());
     
     // 准备FEC消息（返回原始的FecWhisper）
     let messages = sender.prepare_critical_message(0, message.as_bytes(), Priority::Urgent)?;

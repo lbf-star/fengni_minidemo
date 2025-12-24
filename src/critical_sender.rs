@@ -64,11 +64,24 @@ impl CriticalSender {
     pub fn prepare_critical_message(&self, conn_id: u64, data: &[u8], priority: Priority) 
         -> Result<Vec<(u64, FecWhisper)>, String> 
     {
+        info!("准备发送关键信令，原始数据长度: {} 字节", data.len());
+        // 显示数据内容（仅短数据）
+        if data.len() <= 100 {
+            match std::str::from_utf8(data) {
+                Ok(text) => info!("原始数据内容: '{}'", text),
+                Err(_) => info!("原始数据: [二进制数据，{}字节]", data.len()),
+            }
+        } else {
+            info!("原始数据: [数据太长: {}字节]", data.len());
+        }
+
         // 1. 先编码数据
         let (frames, session_id) = {
             let inner = self.inner.read().unwrap();
             inner.encoder.encode(data)?
         };
+
+        info!("FEC编码完成: 会话ID={}, 生成{}个帧", session_id, frames.len());
         
         // 2. 获取调度器
         let mut inner = self.inner.write().unwrap();
