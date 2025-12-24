@@ -21,7 +21,7 @@ path = "src/client.rs"
 quiche = "0.24.6"  # QUIC库
 prost = "0.14.1"  # Protobuf
 prost-types = "0.14.1"  # Protobuf
-log = "0.4"  # 日志
+log = "0.4.29"  # 日志
 
 tracing = "0.1.44"  # 应用级跟踪日志
 tracing-subscriber = "0.3.22" 
@@ -31,6 +31,8 @@ mio ={ version = "1.1.1", features = ["os-poll", "net"]}  # 升级为1.x版本�
 uuid ={ version = "1.19.0", features = ["v4"]}  # 生成UUID作为消息唯一标识符（16字节）
 hex = "0.4.3"  # 用于十六进制显示
 url = "2.5.7"  # 基于WHATWG URL标准的Rust URL库
+twox-hash = "2.1.2"  # XXHash和XXH3算法的Rust实现
+reed-solomon-erasure = "6.0.0"  # FEC支持库
 
 [build-dependencies]
 prost-build = "0.14.1"

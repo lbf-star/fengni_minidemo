@@ -30,7 +30,7 @@ CMAKE = None
 -- The ASM_NASM compiler identification is NASM
 -- Found assembler: C:/Program Files/NASM/nasm.exe
 -- Configuring done (11.6s)
--- Generating done (0.3s)
+-- Generating done (0.2s)
 -- Build files have been written to: E:/Toy_project/fengni/silent-speaker/target/debug/build/quiche-6a4455417317dc3a/out/build
 适用于 .NET Framework MSBuild 版本 17.11.9+a69bbaaf5
 

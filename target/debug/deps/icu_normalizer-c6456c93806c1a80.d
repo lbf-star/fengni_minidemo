@@ -1,8 +1,0 @@
-E:\Toy_project\fengni\silent-speaker\target\debug\deps\libicu_normalizer-c6456c93806c1a80.rmeta: D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\icu_normalizer-2.1.1\src\lib.rs D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\icu_normalizer-2.1.1\src\properties.rs D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\icu_normalizer-2.1.1\src\provider.rs D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\icu_normalizer-2.1.1\src\uts46.rs
-
-E:\Toy_project\fengni\silent-speaker\target\debug\deps\icu_normalizer-c6456c93806c1a80.d: D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\icu_normalizer-2.1.1\src\lib.rs D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\icu_normalizer-2.1.1\src\properties.rs D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\icu_normalizer-2.1.1\src\provider.rs D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\icu_normalizer-2.1.1\src\uts46.rs
-
-D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\icu_normalizer-2.1.1\src\lib.rs:
-D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\icu_normalizer-2.1.1\src\properties.rs:
-D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\icu_normalizer-2.1.1\src\provider.rs:
-D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\icu_normalizer-2.1.1\src\uts46.rs:

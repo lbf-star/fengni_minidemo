@@ -4,7 +4,9 @@ use silent_speaker::logging::init;
 use ring::rand::*;
 
 use prost::Message;
-use silent_speaker::whisper::*;
+use silent_speaker::whisper::{Whisper, Priority};
+use silent_speaker::whisper::whisper::Payload;
+use silent_speaker::critical_sender::CriticalSender;
 
 const MAX_DATAGRAM_SIZE: usize = 1350;
 
@@ -13,6 +15,11 @@ const HTTP_REQ_STREAM_ID: u64 = 4;
 fn main() {
     // 日志系统初始化
     init();
+    
+    // 新增：创建FEC发送器
+    let mut critical_sender = CriticalSender::new(4, 2, 100)
+      .expect("FEC发送器初始化失败");
+    critical_sender.register_connection(0);  // 客户端只有一个连接，ID为0
 
     let mut buf = [0; 65535];
     let mut out = [0; MAX_DATAGRAM_SIZE];
@@ -170,23 +177,27 @@ fn main() {
         if conn.is_established() && !req_sent {
             info!("正在发送消息 {}", url.path());
 
-          // 创建 Whisper 消息
-          let mut whisper = Whisper::default();
-          whisper.id = uuid::Uuid::new_v4().as_bytes().to_vec();
-          whisper.content = "测试消息发送".to_string();
-          whisper.timestamp_ns = std::time::SystemTime::now()
-              .duration_since(std::time::UNIX_EPOCH)
-              .unwrap()
-              .as_nanos() as u64;
-          whisper.priority = Priority::Normal as i32;
+    // 发送普通测试消息
+    let mut whisper = Whisper::default();
+    whisper.id = uuid::Uuid::new_v4().as_bytes().to_vec();
+    whisper.payload = Some(Payload::Content("测试普通消息".to_string()));
+    whisper.timestamp_ns = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .unwrap()
+        .as_nanos() as u64;
+    whisper.priority = Priority::Normal as i32;
+    
+    let data = whisper.encode_to_vec();
+    conn.stream_send(HTTP_REQ_STREAM_ID, &data, false).unwrap();
+    
+    // 新增：发送关键信令（FEC保护）
+    match send_critical_message(&mut conn, &mut critical_sender, "这是一条关键信令！") {
+        Ok(_) => info!("关键信令发送成功"),
+        Err(e) => error!("关键信令发送失败: {}", e),
+    }
 
-          // 序列化并发送
-          let data = whisper.encode_to_vec();
-          conn.stream_send(HTTP_REQ_STREAM_ID, &data, true)
-              .unwrap();
-
-            req_sent = true;
-        }
+        req_sent = true;
+    }
 
         // Process all readable streams.
         for s in conn.readable() {
@@ -205,8 +216,12 @@ fn main() {
                 // 尝试解析为 Whisper 消息，如果失败则作为普通文本处理
                 match Whisper::decode(stream_buf) {
                     Ok(whisper) => {
-                        info!("接收到whisper响应: {}", whisper.content);
-                        print!("服务确认ACK: {}", whisper.content);
+                        let content = match &whisper.payload {
+                            Some(Payload::Content(c)) => c.as_str(),
+                            _ => "[非文本消息]",
+                        };
+                        info!("接收到whisper响应: {}", content);
+                        print!("服务确认ACK: {}", content);
                     }
                     Err(_) => {
                         // 如果不是 Protobuf，可能是普通文本确认
@@ -264,6 +279,64 @@ fn main() {
             break;
         }
     }
+}
+fn send_critical_message(
+    conn: &mut quiche::Connection,
+    sender: &mut CriticalSender,
+    message: &str,
+) -> Result<(), String> {
+    info!("发送关键信令: {}", message); 
+    
+    // 准备FEC消息
+    let messages = sender.prepare_critical_message(0, message.as_bytes(), Priority::Urgent)?;
+    
+    if messages.is_empty() {
+        return Err("没有获取到可用的流".to_string());
+    }
+    
+    for (stream_id, fec_whisper) in messages {
+        // 创建Whisper消息
+        let mut whisper = Whisper::default();
+        whisper.id = uuid::Uuid::new_v4().as_bytes().to_vec();
+        whisper.payload = Some(Payload::FecPayload(fec_whisper));
+        whisper.timestamp_ns = std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .unwrap()
+            .as_nanos() as u64;
+        whisper.priority = Priority::Urgent as i32;
+    
+        // 序列化并发送
+        let data = whisper.encode_to_vec();
+        
+        // 检查流是否可写
+        let writable_streams = conn.writable().collect::<Vec<_>>();
+        if !writable_streams.contains(&stream_id) {
+            // 尝试初始化流 - 发送空数据包打开流
+            match conn.stream_send(stream_id, &[], false) {
+                Ok(_) => debug!("流 {} 初始化成功", stream_id),
+                Err(e) => {
+                    warn!("流 {} 初始化失败: {}, 跳过", stream_id, e);
+                    continue;
+                }
+            }
+        }
+        
+        // 发送数据，fin=false（流保持打开）
+        conn.stream_send(stream_id, &data, false)
+            .map_err(|e| format!("QUIC发送失败: {}", e))?;
+        // 发送完毕后关闭流
+        conn.stream_send(stream_id, &[], true)
+            .map_err(|e| format!("QUIC关闭流失败: {}", e))?;
+        
+        // 标记已发送
+        if let Err(e) = sender.mark_frame_sent(0, stream_id) {
+            warn!("标记帧发送失败: {}", e);
+        }
+        
+        info!("已发送FEC块到流{}", stream_id);
+    }
+    
+    Ok(())
 }
 
 fn hex_dump(buf: &[u8]) -> String {

@@ -2,25 +2,86 @@ syntax = "proto3";
 
 package whisper;
 
-// 明确优先级枚举，便于理解和处理
+// ==================== 枚举定义 ====================
+
+// 消息优先级：影响调度顺序和处理策略
 enum Priority {
-    PRIORITY_LOW = 0;
-    PRIORITY_NORMAL = 1;
-    PRIORITY_HIGH = 2;
-    PRIORITY_URGENT = 3;
+    PRIORITY_LOW = 0;      // 后台任务，可被抢占
+    PRIORITY_NORMAL = 1;   // 普通数据，按顺序处理
+    PRIORITY_HIGH = 2;     // 重要数据，优先处理
+    PRIORITY_URGENT = 3;   // 关键信令，最高优先级
 }
 
-// 优化后的消息结构
+// FEC块类型：区分原始数据和冗余校验
+enum BlockType {
+    BLOCK_TYPE_ORIGINAL = 0;   // 原始数据块
+    BLOCK_TYPE_REDUNDANT = 1;  // 冗余校验块
+}
+
+// ==================== FEC相关消息 ====================
+
+// FEC帧：单个数据块或冗余块的封装
+// 注意：xxhash64字段计算时需排除自身（先设为0，计算后填充）
+message FECFrame {
+    // FEC会话标识：相同数据单元的k+m个块共享此ID
+    bytes session_id = 1;      // 16字节UUID，用于块重组
+    
+    // 块位置信息
+    uint32 block_index = 2;    // 范围：0 到 (k+m-1)
+    uint32 k = 3;              // 原始数据块数（如：4）
+    uint32 m = 4;              // 冗余块数（如：2）
+    
+    // 实际数据载荷：FEC编码后的数据块
+    bytes payload = 5;
+    
+    // 完整性校验：对整个FECFrame（除本字段外）计算xxHash64
+    fixed64 xxhash64 = 6;
+    
+    // 块类型：原始数据块或冗余块
+    BlockType block_type = 7;
+    
+    // 预留扩展空间（中间编号供业务扩展）
+    reserved 8 to 29;
+    
+    // 协议版本：便于未来升级
+    uint32 version = 30;
+    
+    // 预留扩展空间（大编号供系统扩展）
+    reserved 31 to 255;
+}
+
+// FEC专用消息：仅包含FEC帧，无文本内容
+message FECWhisper {
+    FECFrame fec_frame = 1;    // FEC数据帧
+    
+    // 预留扩展空间
+    reserved 2 to 15;
+}
+
+// ==================== 主消息结构 ====================
+
+// Whisper消息：支持普通文本和FEC数据的统一容器
 message Whisper {
-    // 使用16字节的UUID，这是唯一ID的标准长度
-    bytes id = 1;          // 长度严格为16字节，用于去重和追踪
-
-    // whisper的文本内容，UTF-8编码
-    string content = 2;
-
-    // 使用固定64位存储纳秒级时间戳，编码/解码最快
+    // 消息唯一标识：用于去重和追踪
+    bytes id = 1;              // 16字节UUID，长度必须为16
+    
+    // 时间戳：纳秒精度，固定长度编码最快
     fixed64 timestamp_ns = 3;
-
-    // 使用枚举类型，比整数更清晰，体积相同（1字节）
+    
+    // 处理优先级：影响流调度和资源分配
     Priority priority = 4;
+    
+    // 消息负载：普通文本或FEC数据（二选一）
+    oneof payload {
+        string content = 6;        // UTF-8文本消息
+        FECWhisper fec_payload = 7; // FEC专用消息
+    }
+    
+    // 保留字段编号（维持向后兼容性）
+    // 字段2：原content字段（已迁移到字段6）
+    // 字段5：原fec_frame字段（已迁移到字段7）
+    reserved 2, 5, 8 to 14;
+    
+    // 预留未来扩展
+    reserved 15 to 29;
 }

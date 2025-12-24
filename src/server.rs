@@ -1,27 +1,30 @@
 use tracing::{info, error, warn, debug, trace};
 use silent_speaker::logging::init;
 
-use std::net;
+use silent_speaker::critical_sender::CriticalSender;
 
+use std::sync::Arc;
+use std::sync::Mutex;
+use std::net;
 use std::collections::HashMap;
 
 use ring::rand::*;
 
 use prost::Message;
-use silent_speaker::whisper::*;
+use silent_speaker::whisper::{Whisper, Priority};
+use silent_speaker::whisper::whisper::Payload;
 
 const MAX_DATAGRAM_SIZE: usize = 1350;
 
 struct PartialResponse {
     body: Vec<u8>,
-
     written: usize,
 }
 
 struct Client {
     conn: quiche::Connection,
-
     partial_responses: HashMap<u64, PartialResponse>,
+    conn_id: u64,  // 新增：数字连接ID用于FEC发送器
 }
 
 type ClientMap = HashMap<quiche::ConnectionId<'static>, Client>;
@@ -29,7 +32,12 @@ type ClientMap = HashMap<quiche::ConnectionId<'static>, Client>;
 fn main() {
     // 日志系统初始化
     init();
-    
+
+    // 创建FEC关键信令发送器
+    let critical_sender = CriticalSender::new(4, 2, 100).expect("FEC发送器初始化失败");
+
+    let next_conn_id = Arc::new(Mutex::new(0u64));
+
     let mut buf = [0; 65535];
     let mut out = [0; MAX_DATAGRAM_SIZE];
 
@@ -58,15 +66,15 @@ fn main() {
     let mut config = quiche::Config::new(quiche::PROTOCOL_VERSION).unwrap();
 
     config
-    .load_cert_chain_from_pem_file("ca/cert.crt")
-    .unwrap();
+        .load_cert_chain_from_pem_file("ca/cert.crt")
+        .unwrap();
     config
         .load_priv_key_from_pem_file("ca/cert.key")
         .unwrap();
 
     config
-    .set_application_protos(&[b"silent-speaker-v1"])
-    .unwrap();
+        .set_application_protos(&[b"silent-speaker-v1"])
+        .unwrap();
 
     config.set_max_idle_timeout(5000);
     config.set_max_recv_udp_payload_size(MAX_DATAGRAM_SIZE);
@@ -244,9 +252,20 @@ fn main() {
                 )
                 .unwrap();
 
+                // 分配数字连接ID
+                let numeric_conn_id = {
+                    let mut id = next_conn_id.lock().unwrap();
+                    *id += 1;
+                    *id
+                };
+
+                // 注册连接到FEC发送器
+                critical_sender.register_connection(numeric_conn_id);
+
                 let client = Client {
                     conn,
                     partial_responses: HashMap::new(),
+                    conn_id: numeric_conn_id,  // 存储数字连接ID
                 };
 
                 clients.insert(scid.clone(), client);
@@ -304,7 +323,7 @@ fn main() {
                             fin
                         );
 
-                        handle_stream(client, s, stream_buf);
+                        handle_stream(client, s, stream_buf, &critical_sender);
                     }
                 }
             }
@@ -417,55 +436,128 @@ fn validate_token<'a>(
     Some(quiche::ConnectionId::from_ref(&token[addr.len()..]))
 }
 
-/// Handles incoming Whisper Protobuf messages.
-fn handle_stream(client: &mut Client, stream_id: u64, buf: &[u8]) {
+/// Handles incoming Whisper Protobuf messages with FEC support.
+/// 
+/// This function processes both regular text messages and FEC-encoded messages.
+/// 
+/// # Arguments
+/// * `client` - The client connection state
+/// * `stream_id` - QUIC stream ID where the message arrived
+/// * `buf` - Raw message bytes
+/// * `critical_sender` - FEC critical message sender (for future FEC reassembly)
+/// 
+/// # Returns
+/// * Nothing, but may send ACK responses back to the client
+fn handle_stream(
+    client: &mut Client, 
+    stream_id: u64, 
+    buf: &[u8],
+    critical_sender: &CriticalSender,
+) {
     let conn = &mut client.conn;
+
+    // 检查数据是否足够解析（最小Protobuf消息约4字节）
+    if buf.len() < 4 {
+        debug!("{} 数据过短({}字节)，等待更多数据", conn.trace_id(), buf.len());
+        return;
+    }
 
     // 尝试解析 Protobuf 消息
     match Whisper::decode(buf) {
         Ok(whisper) => {
-            info!(
-                "{} 收到whisper格式消息，流ID {}",
-                conn.trace_id(),
-                stream_id
-            );
-            
-            info!(
-                "消息ID: {:?}, 内容: {}, 优先级: {:?}",
-                hex::encode(&whisper.id),
-                whisper.content,
-                whisper.priority()
-            );
-            
-            // 在这里处理消息：打印、转发、存储等
-            // 示例：发送简单的确认回执
-            let ack = format!("确认ACK: 收到 '{}'", whisper.content);
-            match conn.stream_send(stream_id, ack.as_bytes(), false) {
-                Ok(_) => debug!("{} 已发送ACK", conn.trace_id()),
-                Err(e) => error!("{} 发送ACK失败: {:?}", conn.trace_id(), e),
+            // 统一的消息类型处理（支持普通文本和FEC数据）
+            match &whisper.payload {
+                Some(Payload::Content(content)) => {
+                    info!(
+                        "{} 收到whisper格式消息，流ID {}",
+                        conn.trace_id(),
+                        stream_id
+                    );
+                    
+                    info!(
+                        "消息ID: {:?}, 内容: {}, 优先级: {:?}",
+                        hex::encode(&whisper.id),
+                        content,
+                        whisper.priority()
+                    );
+                    
+                    // 在这里处理消息：打印、转发、存储等
+                    // 示例：发送简单的确认回执
+                    let ack = format!("确认ACK: 收到 '{}'", content);
+                    match conn.stream_send(stream_id, ack.as_bytes(), false) {
+                        Ok(_) => debug!("{} 已发送ACK", conn.trace_id()),
+                        Err(e) => error!("{} 发送ACK失败: {:?}", conn.trace_id(), e),
+                    }
+                }
+                Some(Payload::FecPayload(fec)) => {
+                    // FEC消息处理：记录收到的FEC块，用于后续重组
+                    if let Some(frame) = &fec.fec_frame {
+                        info!(
+                            "{} 收到FEC帧 -> 会话:{} 块索引:{} 类型:{:?}",
+                            conn.trace_id(),
+                            hex::encode(&frame.session_id[..4]),  // 显示前4字节用于调试
+                            frame.block_index,
+                            frame.block_type()
+                        );
+                        
+                        // TODO: 实现FEC重组逻辑
+                        // 1. 按session_id缓存FEC帧
+                        // 2. 当收到足够数量的帧时(k个)，调用FEC解码器恢复原始数据
+                        // 3. 处理恢复后的原始消息
+                        
+                        // 暂时发送简单确认，证明收到FEC块
+                        let ack = format!("收到FEC块[{}]", frame.block_index);
+                        match conn.stream_send(stream_id, ack.as_bytes(), false) {
+                            Ok(_) => debug!("{} 已发送FEC确认", conn.trace_id()),
+                            Err(e) => error!("{} 发送FEC确认失败: {:?}", conn.trace_id(), e),
+                        }
+                    } else {
+                        warn!("{} 收到空的FEC消息", conn.trace_id());
+                    }
+                }
+                None => {
+                    warn!(
+                        "{} 收到无内容消息，消息ID: {:?}",
+                        conn.trace_id(),
+                        hex::encode(&whisper.id)
+                    );
+                }
             }
         }
         Err(e) => {
+            // 如果是数据不完整错误，等待更多数据
+            if e.to_string().contains("underflow") || e.to_string().contains("invalid tag") {
+                debug!("{} 数据不完整，等待更多数据: {:?}", conn.trace_id(), e);
+                return;
+            }
+            
             error!(
-                "{} 解析whisper格式消息失败->流{}: {:?}",
+                "{} 解析whisper格式消息失败 -> 流ID {}: {:?}",
                 conn.trace_id(),
                 stream_id,
                 e
             );
             
-            // 发送错误回执
-            let error_msg = format!("错误：无效的 PTOB 格式");
+            // 发送错误回执，帮助客户端调试
+            let error_msg = format!("错误：消息格式无效，无法解析为Protobuf");
             let _ = conn.stream_send(stream_id, error_msg.as_bytes(), true);
         }
     }
 }
 
-/// Handles newly writable streams.
+/// Handles newly writable streams (for sending responses)
+/// 
+/// This function sends any pending data on writable streams.
+/// 
+/// # Arguments
+/// * `client` - The client connection
+/// * `stream_id` - QUIC stream ID that is now writable
 fn handle_writable(client: &mut Client, stream_id: u64) {
     let conn = &mut client.conn;
 
     debug!("{} 流 {} 可写入", conn.trace_id(), stream_id);
 
+    // 如果没有部分响应要发送，直接返回
     if !client.partial_responses.contains_key(&stream_id) {
         return;
     }
@@ -475,12 +567,9 @@ fn handle_writable(client: &mut Client, stream_id: u64) {
 
     let written = match conn.stream_send(stream_id, body, true) {
         Ok(v) => v,
-
         Err(quiche::Error::Done) => 0,
-
         Err(e) => {
             client.partial_responses.remove(&stream_id);
-
             error!("{} 流发送失败 {:?}", conn.trace_id(), e);
             return;
         },

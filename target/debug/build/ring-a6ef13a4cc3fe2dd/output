@@ -63,7 +63,7 @@ ecp_nistz.c
 D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\ring-0.17.14\crypto\fipsmodule\ec\ecp_nistz.h(1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 gfp_p256.c
 gfp_p384.c
-D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\ring-0.17.14\crypto\fipsmodule\ec\ecp_nistz.h(1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\ring-0.17.14\crypto\fipsmodule\ec\ecp_nistz.h(1): warning C4819: ���ļ����������ڵ�ǰ����ҳ(936)�б�ʾ���ַ����뽫���ļ�����Ϊ Unicode ��ʽ�Է�ֹ���ݶ�ʧ
 p256.c
 D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\ring-0.17.14\crypto\fipsmodule\ec\./util.h(1): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 limbs.c

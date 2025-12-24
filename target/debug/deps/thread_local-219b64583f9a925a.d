@@ -1,8 +1,0 @@
-E:\Toy_project\fengni\silent-speaker\target\debug\deps\libthread_local-219b64583f9a925a.rmeta: D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\thread_local-1.1.9\src\lib.rs D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\thread_local-1.1.9\src\cached.rs D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\thread_local-1.1.9\src\thread_id.rs D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\thread_local-1.1.9\src\unreachable.rs
-
-E:\Toy_project\fengni\silent-speaker\target\debug\deps\thread_local-219b64583f9a925a.d: D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\thread_local-1.1.9\src\lib.rs D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\thread_local-1.1.9\src\cached.rs D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\thread_local-1.1.9\src\thread_id.rs D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\thread_local-1.1.9\src\unreachable.rs
-
-D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\thread_local-1.1.9\src\lib.rs:
-D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\thread_local-1.1.9\src\cached.rs:
-D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\thread_local-1.1.9\src\thread_id.rs:
-D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\thread_local-1.1.9\src\unreachable.rs:
