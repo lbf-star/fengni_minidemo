@@ -9,10 +9,13 @@ use std::net;
 use std::collections::HashMap;
 
 use ring::rand::*;
+use hex;
+
 
 use prost::Message;
 use silent_speaker::whisper::{Whisper, Priority};
 use silent_speaker::whisper::whisper::Payload;
+use silent_speaker::framing::{frame_message, StreamParser};
 
 const MAX_DATAGRAM_SIZE: usize = 1350;
 
@@ -25,6 +28,7 @@ struct Client {
     conn: quiche::Connection,
     partial_responses: HashMap<u64, PartialResponse>,
     conn_id: u64,  // 新增：数字连接ID用于FEC发送器
+    stream_parsers: HashMap<u64, StreamParser>,
 }
 
 type ClientMap = HashMap<quiche::ConnectionId<'static>, Client>;
@@ -266,6 +270,7 @@ fn main() {
                     conn,
                     partial_responses: HashMap::new(),
                     conn_id: numeric_conn_id,  // 存储数字连接ID
+                    stream_parsers: HashMap::new(),
                 };
 
                 clients.insert(scid.clone(), client);
@@ -436,14 +441,15 @@ fn validate_token<'a>(
     Some(quiche::ConnectionId::from_ref(&token[addr.len()..]))
 }
 
-/// Handles incoming Whisper Protobuf messages with FEC support.
+/// Handles incoming Whisper Protobuf messages with FEC support and message framing.
 /// 
-/// This function processes both regular text messages and FEC-encoded messages.
+/// This function processes framed messages using the new framing protocol:
+/// [4-byte length prefix][Protobuf message data]
 /// 
 /// # Arguments
 /// * `client` - The client connection state
 /// * `stream_id` - QUIC stream ID where the message arrived
-/// * `buf` - Raw message bytes
+/// * `buf` - Raw message bytes (may contain partial or multiple framed messages)
 /// * `critical_sender` - FEC critical message sender (for future FEC reassembly)
 /// 
 /// # Returns
@@ -455,92 +461,175 @@ fn handle_stream(
     critical_sender: &CriticalSender,
 ) {
     let conn = &mut client.conn;
-
-    // 检查数据是否足够解析（最小Protobuf消息约4字节）
-    if buf.len() < 4 {
-        debug!("{} 数据过短({}字节)，等待更多数据", conn.trace_id(), buf.len());
+    
+    debug!(
+        "{} 流 {} 收到 {} 字节数据",
+        conn.trace_id(),
+        stream_id,
+        buf.len()
+    );
+    
+    // 步骤1: 获取或创建解析器
+    let parser = client.stream_parsers
+        .entry(stream_id)
+        .or_insert_with(StreamParser::new);
+    
+    // 步骤2: 检查缓冲区大小
+    if parser.buffer_size() > 10 * 1024 * 1024 {
+        warn!(
+            "{} 流 {} 解析器缓冲区过大({}字节)，重置解析器",
+            conn.trace_id(),
+            stream_id,
+            parser.buffer_size()
+        );
+        parser.clear();
         return;
     }
+    
+    // 步骤3: 添加数据到解析器
+    if let Err(e) = parser.append_data(buf) {
+        error!(
+            "{} 流 {} 数据添加失败: {:?}，重置解析器",
+            conn.trace_id(),
+            stream_id,
+            e
+        );
+        parser.clear();
+        return;
+    }
+    
+    // 步骤4: 收集所有解析出的消息
+    let mut messages = Vec::new();
+    loop {
+        match parser.try_parse_next() {
+            Ok(Some(whisper)) => {
+                messages.push(whisper);
+            }
+            Ok(None) => {
+                // 数据不完整，等待更多数据
+                break;
+            }
+            Err(e) => {
+                error!(
+                    "{} 流 {} 消息解析失败: {:?}，重置解析器",
+                    conn.trace_id(),
+                    stream_id,
+                    e
+                );
+                parser.clear();
+                return;
+            }
+        }
+    }
+    
+    // 步骤5: 记录日志状态
+    if messages.is_empty() && parser.buffer_size() > 0 {
+        debug!(
+            "{} 流 {} 数据不完整，等待更多数据。当前缓冲区: {} 字节",
+            conn.trace_id(),
+            stream_id,
+            parser.buffer_size()
+        );
+    } else if !messages.is_empty() {
+        debug!(
+            "{} 流 {} 已解析 {} 个消息，准备处理",
+            conn.trace_id(),
+            stream_id,
+            messages.len()
+        );
+    }
+    
+    // 步骤6: 处理消息 - 修复：传递conn引用而不是整个client
+    if !messages.is_empty() {
+        process_messages(conn, stream_id, messages, critical_sender);
+    }
+}
 
-    // 尝试解析 Protobuf 消息
-    match Whisper::decode(buf) {
-        Ok(whisper) => {
-            // 统一的消息类型处理（支持普通文本和FEC数据）
-            match &whisper.payload {
-                Some(Payload::Content(content)) => {
-                    info!(
-                        "{} 收到whisper格式消息，流ID {}",
-                        conn.trace_id(),
-                        stream_id
-                    );
-                    
-                    info!(
-                        "消息ID: {:?}, 内容: {}, 优先级: {:?}",
-                        hex::encode(&whisper.id),
-                        content,
-                        whisper.priority()
-                    );
-                    
-                    // 在这里处理消息：打印、转发、存储等
-                    // 示例：发送简单的确认回执
-                    let ack = format!("确认ACK: 收到 '{}'", content);
-                    match conn.stream_send(stream_id, ack.as_bytes(), false) {
-                        Ok(_) => debug!("{} 已发送ACK", conn.trace_id()),
-                        Err(e) => error!("{} 发送ACK失败: {:?}", conn.trace_id(), e),
-                    }
-                }
-                Some(Payload::FecPayload(fec)) => {
-                    // FEC消息处理：记录收到的FEC块，用于后续重组
-                    if let Some(frame) = &fec.fec_frame {
-                        info!(
-                            "{} 收到FEC帧 -> 会话:{} 块索引:{} 类型:{:?}",
-                            conn.trace_id(),
-                            hex::encode(&frame.session_id[..4]),  // 显示前4字节用于调试
-                            frame.block_index,
-                            frame.block_type()
-                        );
-                        
-                        // TODO: 实现FEC重组逻辑
-                        // 1. 按session_id缓存FEC帧
-                        // 2. 当收到足够数量的帧时(k个)，调用FEC解码器恢复原始数据
-                        // 3. 处理恢复后的原始消息
-                        
-                        // 暂时发送简单确认，证明收到FEC块
-                        let ack = format!("收到FEC块[{}]", frame.block_index);
-                        match conn.stream_send(stream_id, ack.as_bytes(), false) {
-                            Ok(_) => debug!("{} 已发送FEC确认", conn.trace_id()),
-                            Err(e) => error!("{} 发送FEC确认失败: {:?}", conn.trace_id(), e),
-                        }
-                    } else {
-                        warn!("{} 收到空的FEC消息", conn.trace_id());
-                    }
-                }
-                None => {
-                    warn!(
-                        "{} 收到无内容消息，消息ID: {:?}",
-                        conn.trace_id(),
-                        hex::encode(&whisper.id)
-                    );
+// 新增：处理消息的函数，不接收整个client
+fn process_messages(
+    conn: &mut quiche::Connection,
+    stream_id: u64,
+    messages: Vec<Whisper>,
+    critical_sender: &CriticalSender,
+) {
+    for whisper in messages {
+        process_single_message(conn, stream_id, whisper, critical_sender);
+    }
+}
+
+// 修改原来的处理函数，只接收conn
+fn process_single_message(
+    conn: &mut quiche::Connection,
+    stream_id: u64,
+    whisper: Whisper,
+    critical_sender: &CriticalSender,
+) {
+    match &whisper.payload {
+        Some(Payload::Content(content)) => {
+            info!(
+                "{} 收到whisper格式消息，流ID {}",
+                conn.trace_id(),
+                stream_id
+            );
+            
+            info!(
+                "消息ID: {:?}, 内容: {}, 优先级: {:?}",
+                hex::encode(&whisper.id),
+                content,
+                Priority::from_i32(whisper.priority).unwrap_or(Priority::Normal)
+            );
+            
+            // 创建ACK消息
+            let mut ack_whisper = Whisper::default();
+            ack_whisper.id = uuid::Uuid::new_v4().as_bytes().to_vec();
+            let ack_content = format!("确认ACK: 收到 '{}'", content);
+            ack_whisper.payload = Some(Payload::Content(ack_content));
+            ack_whisper.timestamp_ns = std::time::SystemTime::now()
+                .duration_since(std::time::UNIX_EPOCH)
+                .unwrap()
+                .as_nanos() as u64;
+            ack_whisper.priority = whisper.priority;
+            
+            // 使用分帧函数包装ACK消息
+            let framed_ack = silent_speaker::frame_message(&ack_whisper);
+            
+            // 发送ACK回执
+            match conn.stream_send(stream_id, &framed_ack, false) {
+                Ok(_) => debug!("{} 已发送ACK", conn.trace_id()),
+                Err(e) => error!("{} 发送ACK失败: {:?}", conn.trace_id(), e),
+            }
+        }
+        Some(Payload::FecPayload(fec)) => {
+            if let Some(frame) = &fec.fec_frame {
+                info!(
+                    "{} 收到FEC帧 -> 会话:{} 块索引:{} 类型:{:?}",
+                    conn.trace_id(),
+                    hex::encode(&frame.session_id[..4]),
+                    frame.block_index,
+                    frame.block_type()
+                );
+                
+                // 创建FEC确认消息
+                let mut ack_whisper = Whisper::default();
+                ack_whisper.id = uuid::Uuid::new_v4().as_bytes().to_vec();
+                let ack_content = format!("收到FEC块[{}]", frame.block_index);
+                ack_whisper.payload = Some(Payload::Content(ack_content));
+                ack_whisper.timestamp_ns = std::time::SystemTime::now()
+                    .duration_since(std::time::UNIX_EPOCH)
+                    .unwrap()
+                    .as_nanos() as u64;
+                ack_whisper.priority = Priority::Normal as i32;
+                
+                let framed_ack = silent_speaker::frame_message(&ack_whisper);
+                
+                match conn.stream_send(stream_id, &framed_ack, false) {
+                    Ok(_) => debug!("{} 已发送FEC确认", conn.trace_id()),
+                    Err(e) => error!("{} 发送FEC确认失败: {:?}", conn.trace_id(), e),
                 }
             }
         }
-        Err(e) => {
-            // 如果是数据不完整错误，等待更多数据
-            if e.to_string().contains("underflow") || e.to_string().contains("invalid tag") {
-                debug!("{} 数据不完整，等待更多数据: {:?}", conn.trace_id(), e);
-                return;
-            }
-            
-            error!(
-                "{} 解析whisper格式消息失败 -> 流ID {}: {:?}",
-                conn.trace_id(),
-                stream_id,
-                e
-            );
-            
-            // 发送错误回执，帮助客户端调试
-            let error_msg = format!("错误：消息格式无效，无法解析为Protobuf");
-            let _ = conn.stream_send(stream_id, error_msg.as_bytes(), true);
+        None => {
+            warn!("{} 收到无内容消息", conn.trace_id());
         }
     }
 }
@@ -579,5 +668,172 @@ fn handle_writable(client: &mut Client, stream_id: u64) {
 
     if resp.written == resp.body.len() {
         client.partial_responses.remove(&stream_id);
+    }
+}
+
+/// 处理已解析的Whisper消息（内部函数）
+/// 
+/// This function handles a single parsed Whisper message and sends appropriate responses.
+/// 
+/// # Arguments
+/// * `client` - The client connection
+/// * `stream_id` - QUIC stream ID
+/// * `whisper` - Parsed Whisper message
+/// * `critical_sender` - FEC sender for handling FEC messages
+fn process_parsed_whisper(
+    client: &mut Client,
+    stream_id: u64,
+    whisper: Whisper,
+    critical_sender: &CriticalSender,
+) {
+    let conn = &mut client.conn;
+    
+    // 统一的消息类型处理（支持普通文本和FEC数据）
+    match &whisper.payload {
+        Some(Payload::Content(content)) => {
+            info!(
+                "{} 收到whisper格式消息，流ID {}",
+                conn.trace_id(),
+                stream_id
+            );
+            
+            info!(
+                "消息ID: {:?}, 内容: {}, 优先级: {:?}",
+                hex::encode(&whisper.id),
+                content,
+                whisper.priority()
+            );
+            
+            // 在这里处理消息：打印、转发、存储等
+            // 示例：发送简单的确认回执
+            
+            // 创建ACK消息
+            let mut ack_whisper = Whisper::default();
+            ack_whisper.id = uuid::Uuid::new_v4().as_bytes().to_vec();
+            let ack_content = format!("确认ACK: 收到 '{}'", content);
+            ack_whisper.payload = Some(Payload::Content(ack_content));
+            ack_whisper.timestamp_ns = std::time::SystemTime::now()
+                .duration_since(std::time::UNIX_EPOCH)
+                .unwrap()
+                .as_nanos() as u64;
+            ack_whisper.priority = whisper.priority as i32; // 使用原消息的优先级
+            
+            // 使用分帧函数包装ACK消息
+            let framed_ack = frame_message(&ack_whisper);
+            
+            // 发送ACK回执
+            match conn.stream_send(stream_id, &framed_ack, false) {
+                Ok(_) => {
+                    debug!("{} 已发送ACK", conn.trace_id());
+                    
+                    // 如果这是高优先级消息，立即尝试发送
+                    if whisper.priority() == Priority::Urgent || whisper.priority() == Priority::High {
+                        debug!("{} 高优先级消息，立即刷新发送缓冲区", conn.trace_id());
+                        // 注意：这里只是标记需要发送，实际发送在主循环中进行
+                    }
+                }
+                Err(e) => error!("{} 发送ACK失败: {:?}", conn.trace_id(), e),
+            }
+        }
+        Some(Payload::FecPayload(fec)) => {
+            // FEC消息处理：记录收到的FEC块，用于后续重组
+            if let Some(frame) = &fec.fec_frame {
+                info!(
+                    "{} 收到FEC帧 -> 会话:{} 块索引:{} 类型:{:?}",
+                    conn.trace_id(),
+                    hex::encode(&frame.session_id[..4]),  // 显示前4字节用于调试
+                    frame.block_index,
+                    frame.block_type()
+                );
+                
+                // TODO: 实现FEC重组逻辑
+                // 1. 按session_id缓存FEC帧
+                // 2. 当收到足够数量的帧时(k个)，调用FEC解码器恢复原始数据
+                // 3. 处理恢复后的原始消息
+                
+                // 暂时发送FEC确认（使用分帧）
+                let mut ack_whisper = Whisper::default();
+                ack_whisper.id = uuid::Uuid::new_v4().as_bytes().to_vec();
+                let ack_content = format!("收到FEC块[{}]", frame.block_index);
+                ack_whisper.payload = Some(Payload::Content(ack_content));
+                ack_whisper.timestamp_ns = std::time::SystemTime::now()
+                    .duration_since(std::time::UNIX_EPOCH)
+                    .unwrap()
+                    .as_nanos() as u64;
+                ack_whisper.priority = Priority::Normal as i32; // FEC确认使用普通优先级
+                
+                let framed_ack = frame_message(&ack_whisper);
+                
+                match conn.stream_send(stream_id, &framed_ack, false) {
+                    Ok(_) => debug!("{} 已发送FEC确认", conn.trace_id()),
+                    Err(e) => error!("{} 发送FEC确认失败: {:?}", conn.trace_id(), e),
+                }
+            } else {
+                warn!("{} 收到空的FEC消息", conn.trace_id());
+                
+                // 发送错误回执
+                let mut error_whisper = Whisper::default();
+                error_whisper.id = uuid::Uuid::new_v4().as_bytes().to_vec();
+                error_whisper.payload = Some(Payload::Content("错误：空的FEC消息".to_string()));
+                error_whisper.timestamp_ns = std::time::SystemTime::now()
+                    .duration_since(std::time::UNIX_EPOCH)
+                    .unwrap()
+                    .as_nanos() as u64;
+                error_whisper.priority = Priority::Normal as i32;
+                
+                let framed_error = frame_message(&error_whisper);
+                let _ = conn.stream_send(stream_id, &framed_error, false);
+            }
+        }
+        None => {
+            warn!(
+                "{} 收到无内容消息，消息ID: {:?}",
+                conn.trace_id(),
+                hex::encode(&whisper.id)
+            );
+            
+            // 发送错误回执
+            let mut error_whisper = Whisper::default();
+            error_whisper.id = uuid::Uuid::new_v4().as_bytes().to_vec();
+            error_whisper.payload = Some(Payload::Content("错误：消息内容为空".to_string()));
+            error_whisper.timestamp_ns = std::time::SystemTime::now()
+                .duration_since(std::time::UNIX_EPOCH)
+                .unwrap()
+                .as_nanos() as u64;
+            error_whisper.priority = Priority::Normal as i32;
+            
+            let framed_error = frame_message(&error_whisper);
+            let _ = conn.stream_send(stream_id, &framed_error, false);
+        }
+    }
+}
+
+/// 清理空闲的流解析器（防止内存泄漏）
+/// 
+/// 移除长时间未使用的流解析器，释放内存。
+/// 
+/// # Arguments
+/// * `client` - The client connection
+fn cleanup_idle_parsers(client: &mut Client) {
+    // 这里可以添加基于时间的清理逻辑
+    // 例如：移除超过30分钟未使用的解析器
+    
+    // 简单实现：如果解析器数量过多，清理一些
+    const MAX_PARSERS_PER_CLIENT: usize = 100;
+    if client.stream_parsers.len() > MAX_PARSERS_PER_CLIENT {
+        warn!(
+            "{} 流解析器数量过多({})，清理部分空闲解析器",
+            client.conn.trace_id(),
+            client.stream_parsers.len()
+        );
+        
+        // 简单的清理策略：移除缓冲区为空的解析器
+        client.stream_parsers.retain(|_, parser| parser.buffer_size() > 0);
+        
+        info!(
+            "{} 清理后流解析器数量: {}",
+            client.conn.trace_id(),
+            client.stream_parsers.len()
+        );
     }
 }

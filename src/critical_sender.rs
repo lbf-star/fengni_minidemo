@@ -1,5 +1,5 @@
 use crate::fec::FECEncoder;
-use crate::stream::StreamScheduler;
+use crate::stream::scheduler::StreamScheduler;
 use crate::whisper::{FecWhisper, FecFrame, Priority};
 use uuid::Uuid;
 use std::collections::HashMap;

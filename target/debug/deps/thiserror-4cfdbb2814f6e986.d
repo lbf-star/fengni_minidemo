@@ -1,0 +1,12 @@
+E:\Toy_project\fengni\silent-speaker\target\debug\deps\libthiserror-4cfdbb2814f6e986.rmeta: D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\thiserror-2.0.17\src\lib.rs D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\thiserror-2.0.17\src\aserror.rs D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\thiserror-2.0.17\src\display.rs D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\thiserror-2.0.17\src\var.rs D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\thiserror-2.0.17\src\private.rs E:\Toy_project\fengni\silent-speaker\target\debug\build\thiserror-e8c906ac7c9e2975\out/private.rs
+
+E:\Toy_project\fengni\silent-speaker\target\debug\deps\thiserror-4cfdbb2814f6e986.d: D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\thiserror-2.0.17\src\lib.rs D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\thiserror-2.0.17\src\aserror.rs D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\thiserror-2.0.17\src\display.rs D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\thiserror-2.0.17\src\var.rs D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\thiserror-2.0.17\src\private.rs E:\Toy_project\fengni\silent-speaker\target\debug\build\thiserror-e8c906ac7c9e2975\out/private.rs
+
+D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\thiserror-2.0.17\src\lib.rs:
+D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\thiserror-2.0.17\src\aserror.rs:
+D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\thiserror-2.0.17\src\display.rs:
+D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\thiserror-2.0.17\src\var.rs:
+D:\SoftwareInstallationFolder\Rust\cargo_home\registry\src\index.crates.io-1949cf8c6b5b557f\thiserror-2.0.17\src\private.rs:
+E:\Toy_project\fengni\silent-speaker\target\debug\build\thiserror-e8c906ac7c9e2975\out/private.rs:
+
+# env-dep:OUT_DIR=E:\\Toy_project\\fengni\\silent-speaker\\target\\debug\\build\\thiserror-e8c906ac7c9e2975\\out

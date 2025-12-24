@@ -34,5 +34,7 @@ url = "2.5.7"  # 基于WHATWG URL标准的Rust URL库
 twox-hash = "2.1.2"  # XXHash和XXH3算法的Rust实现
 reed-solomon-erasure = "6.0.0"  # FEC支持库
 
+thiserror = "2.0.17"
+
 [build-dependencies]
 prost-build = "0.14.1"

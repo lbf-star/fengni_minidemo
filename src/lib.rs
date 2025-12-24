@@ -14,11 +14,22 @@ pub mod stream;
 /// 关键信令发送器
 pub mod critical_sender;
 
+/// 新增：消息分帧工具模块
+pub mod framing;
+
 /// 重新导出常用类型
 pub use whisper::*;
 pub use fec::FECEncoder;
-pub use stream::{StreamPool, StreamScheduler};
+pub use stream::{
+    StreamPool, 
+    StreamScheduler, 
+    UnifiedStreamManager,
+    PoolStats, 
+    SchedulerStats,
+    ManagerStats
+};
 pub use critical_sender::CriticalSender;
+pub use framing::{frame_message, parse_framed_message, FramingError}; // 新增导出
 
 /// 库版本信息
 pub const VERSION: &str = env!("CARGO_PKG_VERSION");

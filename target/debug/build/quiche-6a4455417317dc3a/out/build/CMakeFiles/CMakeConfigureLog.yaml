@@ -113,7 +113,7 @@ events:
       The output was:
       0
       閫傜敤浜?.NET Framework MSBuild 鐗堟湰 17.11.9+a69bbaaf5
-      鐢熸垚鍚姩鏃堕棿涓?2025/12/25 2:15:18銆?
+      鐢熸垚鍚姩鏃堕棿涓?2025/12/25 2:46:51銆?
       
       鑺傜偣 1 涓婄殑椤圭洰鈥淓:\\Toy_project\\fengni\\silent-speaker\\target\\debug\\build\\quiche-6a4455417317dc3a\\out\\build\\CMakeFiles\\4.2.1\\CompilerIdC\\CompilerIdC.vcxproj鈥?榛樿鐩爣)銆?
       PrepareForBuild:
@@ -142,7 +142,7 @@ events:
           0 涓鍛?
           0 涓敊璇?
       
-      宸茬敤鏃堕棿 00:00:01.13
+      宸茬敤鏃堕棿 00:00:01.47
       
       
       Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
@@ -1023,7 +1023,7 @@ events:
       The output was:
       0
       閫傜敤浜?.NET Framework MSBuild 鐗堟湰 17.11.9+a69bbaaf5
-      鐢熸垚鍚姩鏃堕棿涓?2025/12/25 2:15:19銆?
+      鐢熸垚鍚姩鏃堕棿涓?2025/12/25 2:46:53銆?
       
       鑺傜偣 1 涓婄殑椤圭洰鈥淓:\\Toy_project\\fengni\\silent-speaker\\target\\debug\\build\\quiche-6a4455417317dc3a\\out\\build\\CMakeFiles\\4.2.1\\CompilerIdCXX\\CompilerIdCXX.vcxproj鈥?榛樿鐩爣)銆?
       PrepareForBuild:
@@ -1052,7 +1052,7 @@ events:
           0 涓鍛?
           0 涓敊璇?
       
-      宸茬敤鏃堕棿 00:00:01.84
+      宸茬敤鏃堕棿 00:00:01.60
       
       
       Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
@@ -1480,8 +1480,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "E:/Toy_project/fengni/silent-speaker/target/debug/build/quiche-6a4455417317dc3a/out/build/CMakeFiles/CMakeScratch/TryCompile-xtzg18"
-      binary: "E:/Toy_project/fengni/silent-speaker/target/debug/build/quiche-6a4455417317dc3a/out/build/CMakeFiles/CMakeScratch/TryCompile-xtzg18"
+      source: "E:/Toy_project/fengni/silent-speaker/target/debug/build/quiche-6a4455417317dc3a/out/build/CMakeFiles/CMakeScratch/TryCompile-f809qa"
+      binary: "E:/Toy_project/fengni/silent-speaker/target/debug/build/quiche-6a4455417317dc3a/out/build/CMakeFiles/CMakeScratch/TryCompile-f809qa"
     cmakeVariables:
       CMAKE_C_FLAGS: " -nologo -MD -Brepro -W0"
       CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
@@ -1489,36 +1489,36 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'E:/Toy_project/fengni/silent-speaker/target/debug/build/quiche-6a4455417317dc3a/out/build/CMakeFiles/CMakeScratch/TryCompile-xtzg18'
+        Change Dir: 'E:/Toy_project/fengni/silent-speaker/target/debug/build/quiche-6a4455417317dc3a/out/build/CMakeFiles/CMakeScratch/TryCompile-f809qa'
         
-        Run Build Command(s): "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_a9438.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_debc7.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         閫傜敤浜?.NET Framework MSBuild 鐗堟湰 17.11.9+a69bbaaf5
-        鐢熸垚鍚姩鏃堕棿涓?2025/12/25 2:15:22銆?
+        鐢熸垚鍚姩鏃堕棿涓?2025/12/25 2:46:55銆?
         
-        鑺傜偣 1 涓婄殑椤圭洰鈥淓:\\Toy_project\\fengni\\silent-speaker\\target\\debug\\build\\quiche-6a4455417317dc3a\\out\\build\\CMakeFiles\\CMakeScratch\\TryCompile-xtzg18\\cmTC_a9438.vcxproj鈥?榛樿鐩爣)銆?
+        鑺傜偣 1 涓婄殑椤圭洰鈥淓:\\Toy_project\\fengni\\silent-speaker\\target\\debug\\build\\quiche-6a4455417317dc3a\\out\\build\\CMakeFiles\\CMakeScratch\\TryCompile-f809qa\\cmTC_debc7.vcxproj鈥?榛樿鐩爣)銆?
         PrepareForBuild:
           宸插惎鐢ㄧ粨鏋勫寲杈撳嚭銆傜紪璇戝櫒璇婃柇鐨勬牸寮忚缃皢鍙嶆槧閿欒灞傛缁撴瀯銆傛湁鍏宠缁嗕俊鎭紝璇峰弬闃?https://aka.ms/cpp/structured-output銆?
-          姝ｅ湪鍒涘缓鐩綍鈥淓:\\Toy_project\\fengni\\silent-speaker\\target\\debug\\build\\quiche-6a4455417317dc3a\\out\\build\\CMakeFiles\\CMakeScratch\\TryCompile-xtzg18\\Debug\\鈥濄€?
-          姝ｅ湪鍒涘缓鐩綍鈥渃mTC_a9438.dir\\Debug\\cmTC_a9438.tlog\\鈥濄€?
+          姝ｅ湪鍒涘缓鐩綍鈥淓:\\Toy_project\\fengni\\silent-speaker\\target\\debug\\build\\quiche-6a4455417317dc3a\\out\\build\\CMakeFiles\\CMakeScratch\\TryCompile-f809qa\\Debug\\鈥濄€?
+          姝ｅ湪鍒涘缓鐩綍鈥渃mTC_debc7.dir\\Debug\\cmTC_debc7.tlog\\鈥濄€?
         InitializeBuildStatus:
-          姝ｅ湪鍒涘缓鈥渃mTC_a9438.dir\\Debug\\cmTC_a9438.tlog\\unsuccessfulbuild鈥濓紝鍥犱负宸叉寚瀹氣€淎lwaysCreate鈥濄€?
-          姝ｅ湪瀵光€渃mTC_a9438.dir\\Debug\\cmTC_a9438.tlog\\unsuccessfulbuild鈥濇墽琛?Touch 浠诲姟銆?
+          姝ｅ湪鍒涘缓鈥渃mTC_debc7.dir\\Debug\\cmTC_debc7.tlog\\unsuccessfulbuild鈥濓紝鍥犱负宸叉寚瀹氣€淎lwaysCreate鈥濄€?
+          姝ｅ湪瀵光€渃mTC_debc7.dir\\Debug\\cmTC_debc7.tlog\\unsuccessfulbuild鈥濇墽琛?Touch 浠诲姟銆?
         ClCompile:
-          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.41.34120\\bin\\HostX64\\x64\\CL.exe /c /Zi /nologo /W0 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_a9438.dir\\Debug\\\\" /Fd"cmTC_a9438.dir\\Debug\\vc143.pdb" /external:W0 /TC /errorReport:queue  -Brepro "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCCompilerABI.c"
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.41.34120\\bin\\HostX64\\x64\\CL.exe /c /Zi /nologo /W0 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_debc7.dir\\Debug\\\\" /Fd"cmTC_debc7.dir\\Debug\\vc143.pdb" /external:W0 /TC /errorReport:queue  -Brepro "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCCompilerABI.c"
           CMakeCCompilerABI.c
         Link:
-          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.41.34120\\bin\\HostX64\\x64\\link.exe /OUT:"E:\\Toy_project\\fengni\\silent-speaker\\target\\debug\\build\\quiche-6a4455417317dc3a\\out\\build\\CMakeFiles\\CMakeScratch\\TryCompile-xtzg18\\Debug\\cmTC_a9438.exe" /INCREMENTAL /ILK:"cmTC_a9438.dir\\Debug\\cmTC_a9438.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:/Toy_project/fengni/silent-speaker/target/debug/build/quiche-6a4455417317dc3a/out/build/CMakeFiles/CMakeScratch/TryCompile-xtzg18/Debug/cmTC_a9438.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"E:/Toy_project/fengni/silent-speaker/target/debug/build/quiche-6a4455417317dc3a/out/build/CMakeFiles/CMakeScratch/TryCompile-xtzg18/Debug/cmTC_a9438.lib" /MACHINE:X64  /machine:x64 cmTC_a9438.dir\\Debug\\CMakeCCompilerABI.obj
-          cmTC_a9438.vcxproj -> E:\\Toy_project\\fengni\\silent-speaker\\target\\debug\\build\\quiche-6a4455417317dc3a\\out\\build\\CMakeFiles\\CMakeScratch\\TryCompile-xtzg18\\Debug\\cmTC_a9438.exe
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.41.34120\\bin\\HostX64\\x64\\link.exe /OUT:"E:\\Toy_project\\fengni\\silent-speaker\\target\\debug\\build\\quiche-6a4455417317dc3a\\out\\build\\CMakeFiles\\CMakeScratch\\TryCompile-f809qa\\Debug\\cmTC_debc7.exe" /INCREMENTAL /ILK:"cmTC_debc7.dir\\Debug\\cmTC_debc7.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:/Toy_project/fengni/silent-speaker/target/debug/build/quiche-6a4455417317dc3a/out/build/CMakeFiles/CMakeScratch/TryCompile-f809qa/Debug/cmTC_debc7.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"E:/Toy_project/fengni/silent-speaker/target/debug/build/quiche-6a4455417317dc3a/out/build/CMakeFiles/CMakeScratch/TryCompile-f809qa/Debug/cmTC_debc7.lib" /MACHINE:X64  /machine:x64 cmTC_debc7.dir\\Debug\\CMakeCCompilerABI.obj
+          cmTC_debc7.vcxproj -> E:\\Toy_project\\fengni\\silent-speaker\\target\\debug\\build\\quiche-6a4455417317dc3a\\out\\build\\CMakeFiles\\CMakeScratch\\TryCompile-f809qa\\Debug\\cmTC_debc7.exe
         FinalizeBuildStatus:
-          姝ｅ湪鍒犻櫎鏂囦欢鈥渃mTC_a9438.dir\\Debug\\cmTC_a9438.tlog\\unsuccessfulbuild鈥濄€?
-          姝ｅ湪瀵光€渃mTC_a9438.dir\\Debug\\cmTC_a9438.tlog\\cmTC_a9438.lastbuildstate鈥濇墽琛?Touch 浠诲姟銆?
-        宸插畬鎴愮敓鎴愰」鐩€淓:\\Toy_project\\fengni\\silent-speaker\\target\\debug\\build\\quiche-6a4455417317dc3a\\out\\build\\CMakeFiles\\CMakeScratch\\TryCompile-xtzg18\\cmTC_a9438.vcxproj鈥?榛樿鐩爣)鐨勬搷浣溿€?
+          姝ｅ湪鍒犻櫎鏂囦欢鈥渃mTC_debc7.dir\\Debug\\cmTC_debc7.tlog\\unsuccessfulbuild鈥濄€?
+          姝ｅ湪瀵光€渃mTC_debc7.dir\\Debug\\cmTC_debc7.tlog\\cmTC_debc7.lastbuildstate鈥濇墽琛?Touch 浠诲姟銆?
+        宸插畬鎴愮敓鎴愰」鐩€淓:\\Toy_project\\fengni\\silent-speaker\\target\\debug\\build\\quiche-6a4455417317dc3a\\out\\build\\CMakeFiles\\CMakeScratch\\TryCompile-f809qa\\cmTC_debc7.vcxproj鈥?榛樿鐩爣)鐨勬搷浣溿€?
         
         宸叉垚鍔熺敓鎴愩€?
             0 涓鍛?
             0 涓敊璇?
         
-        宸茬敤鏃堕棿 00:00:01.74
+        宸茬敤鏃堕棿 00:00:01.87
         
       exitCode: 0
   -
@@ -1558,8 +1558,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "E:/Toy_project/fengni/silent-speaker/target/debug/build/quiche-6a4455417317dc3a/out/build/CMakeFiles/CMakeScratch/TryCompile-p3nsxi"
-      binary: "E:/Toy_project/fengni/silent-speaker/target/debug/build/quiche-6a4455417317dc3a/out/build/CMakeFiles/CMakeScratch/TryCompile-p3nsxi"
+      source: "E:/Toy_project/fengni/silent-speaker/target/debug/build/quiche-6a4455417317dc3a/out/build/CMakeFiles/CMakeScratch/TryCompile-p263r3"
+      binary: "E:/Toy_project/fengni/silent-speaker/target/debug/build/quiche-6a4455417317dc3a/out/build/CMakeFiles/CMakeScratch/TryCompile-p263r3"
     cmakeVariables:
       CMAKE_CXX_FLAGS: " -nologo -MD -Brepro -W0"
       CMAKE_CXX_SCAN_FOR_MODULES: "OFF"
@@ -1568,36 +1568,36 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'E:/Toy_project/fengni/silent-speaker/target/debug/build/quiche-6a4455417317dc3a/out/build/CMakeFiles/CMakeScratch/TryCompile-p3nsxi'
+        Change Dir: 'E:/Toy_project/fengni/silent-speaker/target/debug/build/quiche-6a4455417317dc3a/out/build/CMakeFiles/CMakeScratch/TryCompile-p263r3'
         
-        Run Build Command(s): "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_cafd3.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_4184e.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         閫傜敤浜?.NET Framework MSBuild 鐗堟湰 17.11.9+a69bbaaf5
-        鐢熸垚鍚姩鏃堕棿涓?2025/12/25 2:15:24銆?
+        鐢熸垚鍚姩鏃堕棿涓?2025/12/25 2:46:58銆?
         
-        鑺傜偣 1 涓婄殑椤圭洰鈥淓:\\Toy_project\\fengni\\silent-speaker\\target\\debug\\build\\quiche-6a4455417317dc3a\\out\\build\\CMakeFiles\\CMakeScratch\\TryCompile-p3nsxi\\cmTC_cafd3.vcxproj鈥?榛樿鐩爣)銆?
+        鑺傜偣 1 涓婄殑椤圭洰鈥淓:\\Toy_project\\fengni\\silent-speaker\\target\\debug\\build\\quiche-6a4455417317dc3a\\out\\build\\CMakeFiles\\CMakeScratch\\TryCompile-p263r3\\cmTC_4184e.vcxproj鈥?榛樿鐩爣)銆?
         PrepareForBuild:
           宸插惎鐢ㄧ粨鏋勫寲杈撳嚭銆傜紪璇戝櫒璇婃柇鐨勬牸寮忚缃皢鍙嶆槧閿欒灞傛缁撴瀯銆傛湁鍏宠缁嗕俊鎭紝璇峰弬闃?https://aka.ms/cpp/structured-output銆?
-          姝ｅ湪鍒涘缓鐩綍鈥淓:\\Toy_project\\fengni\\silent-speaker\\target\\debug\\build\\quiche-6a4455417317dc3a\\out\\build\\CMakeFiles\\CMakeScratch\\TryCompile-p3nsxi\\Debug\\鈥濄€?
-          姝ｅ湪鍒涘缓鐩綍鈥渃mTC_cafd3.dir\\Debug\\cmTC_cafd3.tlog\\鈥濄€?
+          姝ｅ湪鍒涘缓鐩綍鈥淓:\\Toy_project\\fengni\\silent-speaker\\target\\debug\\build\\quiche-6a4455417317dc3a\\out\\build\\CMakeFiles\\CMakeScratch\\TryCompile-p263r3\\Debug\\鈥濄€?
+          姝ｅ湪鍒涘缓鐩綍鈥渃mTC_4184e.dir\\Debug\\cmTC_4184e.tlog\\鈥濄€?
         InitializeBuildStatus:
-          姝ｅ湪鍒涘缓鈥渃mTC_cafd3.dir\\Debug\\cmTC_cafd3.tlog\\unsuccessfulbuild鈥濓紝鍥犱负宸叉寚瀹氣€淎lwaysCreate鈥濄€?
-          姝ｅ湪瀵光€渃mTC_cafd3.dir\\Debug\\cmTC_cafd3.tlog\\unsuccessfulbuild鈥濇墽琛?Touch 浠诲姟銆?
+          姝ｅ湪鍒涘缓鈥渃mTC_4184e.dir\\Debug\\cmTC_4184e.tlog\\unsuccessfulbuild鈥濓紝鍥犱负宸叉寚瀹氣€淎lwaysCreate鈥濄€?
+          姝ｅ湪瀵光€渃mTC_4184e.dir\\Debug\\cmTC_4184e.tlog\\unsuccessfulbuild鈥濇墽琛?Touch 浠诲姟銆?
         ClCompile:
-          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.41.34120\\bin\\HostX64\\x64\\CL.exe /c /Zi /nologo /W0 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_cafd3.dir\\Debug\\\\" /Fd"cmTC_cafd3.dir\\Debug\\vc143.pdb" /external:W0 /TP /errorReport:queue  -Brepro "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCXXCompilerABI.cpp"
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.41.34120\\bin\\HostX64\\x64\\CL.exe /c /Zi /nologo /W0 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D _MBCS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /Fo"cmTC_4184e.dir\\Debug\\\\" /Fd"cmTC_4184e.dir\\Debug\\vc143.pdb" /external:W0 /TP /errorReport:queue  -Brepro "C:\\Program Files\\CMake\\share\\cmake-4.2\\Modules\\CMakeCXXCompilerABI.cpp"
           CMakeCXXCompilerABI.cpp
         Link:
-          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.41.34120\\bin\\HostX64\\x64\\link.exe /OUT:"E:\\Toy_project\\fengni\\silent-speaker\\target\\debug\\build\\quiche-6a4455417317dc3a\\out\\build\\CMakeFiles\\CMakeScratch\\TryCompile-p3nsxi\\Debug\\cmTC_cafd3.exe" /INCREMENTAL /ILK:"cmTC_cafd3.dir\\Debug\\cmTC_cafd3.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:/Toy_project/fengni/silent-speaker/target/debug/build/quiche-6a4455417317dc3a/out/build/CMakeFiles/CMakeScratch/TryCompile-p3nsxi/Debug/cmTC_cafd3.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"E:/Toy_project/fengni/silent-speaker/target/debug/build/quiche-6a4455417317dc3a/out/build/CMakeFiles/CMakeScratch/TryCompile-p3nsxi/Debug/cmTC_cafd3.lib" /MACHINE:X64  /machine:x64 cmTC_cafd3.dir\\Debug\\CMakeCXXCompilerABI.obj
-          cmTC_cafd3.vcxproj -> E:\\Toy_project\\fengni\\silent-speaker\\target\\debug\\build\\quiche-6a4455417317dc3a\\out\\build\\CMakeFiles\\CMakeScratch\\TryCompile-p3nsxi\\Debug\\cmTC_cafd3.exe
+          C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.41.34120\\bin\\HostX64\\x64\\link.exe /OUT:"E:\\Toy_project\\fengni\\silent-speaker\\target\\debug\\build\\quiche-6a4455417317dc3a\\out\\build\\CMakeFiles\\CMakeScratch\\TryCompile-p263r3\\Debug\\cmTC_4184e.exe" /INCREMENTAL /ILK:"cmTC_4184e.dir\\Debug\\cmTC_4184e.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"E:/Toy_project/fengni/silent-speaker/target/debug/build/quiche-6a4455417317dc3a/out/build/CMakeFiles/CMakeScratch/TryCompile-p263r3/Debug/cmTC_4184e.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"E:/Toy_project/fengni/silent-speaker/target/debug/build/quiche-6a4455417317dc3a/out/build/CMakeFiles/CMakeScratch/TryCompile-p263r3/Debug/cmTC_4184e.lib" /MACHINE:X64  /machine:x64 cmTC_4184e.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_4184e.vcxproj -> E:\\Toy_project\\fengni\\silent-speaker\\target\\debug\\build\\quiche-6a4455417317dc3a\\out\\build\\CMakeFiles\\CMakeScratch\\TryCompile-p263r3\\Debug\\cmTC_4184e.exe
         FinalizeBuildStatus:
-          姝ｅ湪鍒犻櫎鏂囦欢鈥渃mTC_cafd3.dir\\Debug\\cmTC_cafd3.tlog\\unsuccessfulbuild鈥濄€?
-          姝ｅ湪瀵光€渃mTC_cafd3.dir\\Debug\\cmTC_cafd3.tlog\\cmTC_cafd3.lastbuildstate鈥濇墽琛?Touch 浠诲姟銆?
-        宸插畬鎴愮敓鎴愰」鐩€淓:\\Toy_project\\fengni\\silent-speaker\\target\\debug\\build\\quiche-6a4455417317dc3a\\out\\build\\CMakeFiles\\CMakeScratch\\TryCompile-p3nsxi\\cmTC_cafd3.vcxproj鈥?榛樿鐩爣)鐨勬搷浣溿€?
+          姝ｅ湪鍒犻櫎鏂囦欢鈥渃mTC_4184e.dir\\Debug\\cmTC_4184e.tlog\\unsuccessfulbuild鈥濄€?
+          姝ｅ湪瀵光€渃mTC_4184e.dir\\Debug\\cmTC_4184e.tlog\\cmTC_4184e.lastbuildstate鈥濇墽琛?Touch 浠诲姟銆?
+        宸插畬鎴愮敓鎴愰」鐩€淓:\\Toy_project\\fengni\\silent-speaker\\target\\debug\\build\\quiche-6a4455417317dc3a\\out\\build\\CMakeFiles\\CMakeScratch\\TryCompile-p263r3\\cmTC_4184e.vcxproj鈥?榛樿鐩爣)鐨勬搷浣溿€?
         
         宸叉垚鍔熺敓鎴愩€?
             0 涓鍛?
             0 涓敊璇?
         
-        宸茬敤鏃堕棿 00:00:01.58
+        宸茬敤鏃堕棿 00:00:01.62
         
       exitCode: 0
   -

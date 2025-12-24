@@ -7,19 +7,22 @@ use prost::Message;
 use silent_speaker::whisper::{Whisper, Priority};
 use silent_speaker::whisper::whisper::Payload;
 use silent_speaker::critical_sender::CriticalSender;
+use silent_speaker::framing::frame_message; // 新增导入
 
 const MAX_DATAGRAM_SIZE: usize = 1350;
-
-const HTTP_REQ_STREAM_ID: u64 = 4;
 
 fn main() {
     // 日志系统初始化
     init();
     
-    // 新增：创建FEC发送器
+    // 新增：创建FEC发送器和统一流管理器
     let mut critical_sender = CriticalSender::new(4, 2, 100)
       .expect("FEC发送器初始化失败");
     critical_sender.register_connection(0);  // 客户端只有一个连接，ID为0
+    
+    // 新增：统一流管理器（客户端单例）
+    use silent_speaker::stream::UnifiedStreamManager;
+    let mut stream_manager = UnifiedStreamManager::new(100);
 
     let mut buf = [0; 65535];
     let mut out = [0; MAX_DATAGRAM_SIZE];
@@ -62,7 +65,7 @@ fn main() {
     // Create the configuration for the QUIC connection.
     let mut config = quiche::Config::new(quiche::PROTOCOL_VERSION).unwrap();
 
-    // *CAUTION*: this should not be set to `false` in production!!!
+    // *CAUTION*: this should not be set to `false' in production!!!
     config.verify_peer(false);
 
     config
@@ -177,7 +180,7 @@ fn main() {
         if conn.is_established() && !req_sent {
             info!("正在发送消息 {}", url.path());
 
-    // 发送普通测试消息
+    // ============ 修改开始：使用分帧发送普通消息 ============
     let mut whisper = Whisper::default();
     whisper.id = uuid::Uuid::new_v4().as_bytes().to_vec();
     whisper.payload = Some(Payload::Content("测试普通消息".to_string()));
@@ -187,11 +190,28 @@ fn main() {
         .as_nanos() as u64;
     whisper.priority = Priority::Normal as i32;
     
-    let data = whisper.encode_to_vec();
-    conn.stream_send(HTTP_REQ_STREAM_ID, &data, false).unwrap();
+    // 使用分帧函数包装消息
+    let framed_data = frame_message(&whisper);
     
-    // 新增：发送关键信令（FEC保护）
-    match send_critical_message(&mut conn, &mut critical_sender, "这是一条关键信令！") {
+    // 使用统一流管理器分配流
+    match stream_manager.allocate_stream_for_normal_message(framed_data, Priority::Normal) {
+        Some((stream_id, message_data)) => {
+            // 发送分帧数据
+            conn.stream_send(stream_id, &message_data, false).unwrap();
+            info!("普通消息已通过统一流管理器发送，流ID: {}", stream_id);
+            
+            // 发送完毕后关闭流
+            conn.stream_send(stream_id, &[], true).unwrap();
+            info!("流{}已关闭", stream_id);
+        }
+        None => {
+            error!("无法分配流发送普通消息，已加入等待队列");
+        }
+    }
+    // ============ 修改结束 ============
+    
+    // 新增：发送关键信令（FEC保护）- 使用分帧版本
+    match send_critical_message_with_framing(&mut conn, &mut critical_sender, "这是一条关键信令！") {
         Ok(_) => info!("关键信令发送成功"),
         Err(e) => error!("关键信令发送失败: {}", e),
     }
@@ -213,26 +233,15 @@ fn main() {
                     fin
                 );
 
-                // 尝试解析为 Whisper 消息，如果失败则作为普通文本处理
-                match Whisper::decode(stream_buf) {
-                    Ok(whisper) => {
-                        let content = match &whisper.payload {
-                            Some(Payload::Content(c)) => c.as_str(),
-                            _ => "[非文本消息]",
-                        };
-                        info!("接收到whisper响应: {}", content);
-                        print!("服务确认ACK: {}", content);
-                    }
-                    Err(_) => {
-                        // 如果不是 Protobuf，可能是普通文本确认
-                        print!("{}", unsafe {
-                            std::str::from_utf8_unchecked(stream_buf)
-                        });
-                    }
+                // ============ 修改开始：尝试解析分帧消息 ============
+                // 注意：客户端目前只接收确认消息，简化处理
+                if let Ok(text) = std::str::from_utf8(stream_buf) {
+                    print!("{}", text);
                 }
+                // ============ 修改结束 ============
 
                 // 服务器报告没有更多数据发送，我们已收到完整响应。关闭连接。
-                if s == HTTP_REQ_STREAM_ID && fin {
+                if fin {
                     info!(
                         "接受的响应位于{:?}, 正在关闭...",
                         req_start.elapsed()
@@ -280,14 +289,16 @@ fn main() {
         }
     }
 }
-fn send_critical_message(
+
+// ============ 新增：使用分帧的关键信令发送函数 ============
+fn send_critical_message_with_framing(
     conn: &mut quiche::Connection,
     sender: &mut CriticalSender,
     message: &str,
 ) -> Result<(), String> {
     info!("发送关键信令: {}", message); 
     
-    // 准备FEC消息
+    // 准备FEC消息（返回原始的FecWhisper）
     let messages = sender.prepare_critical_message(0, message.as_bytes(), Priority::Urgent)?;
     
     if messages.is_empty() {
@@ -295,7 +306,7 @@ fn send_critical_message(
     }
     
     for (stream_id, fec_whisper) in messages {
-        // 创建Whisper消息
+        // 创建Whisper消息（包含FEC负载）
         let mut whisper = Whisper::default();
         whisper.id = uuid::Uuid::new_v4().as_bytes().to_vec();
         whisper.payload = Some(Payload::FecPayload(fec_whisper));
@@ -305,8 +316,8 @@ fn send_critical_message(
             .as_nanos() as u64;
         whisper.priority = Priority::Urgent as i32;
     
-        // 序列化并发送
-        let data = whisper.encode_to_vec();
+        // 使用分帧函数包装消息
+        let framed_data = frame_message(&whisper);
         
         // 检查流是否可写
         let writable_streams = conn.writable().collect::<Vec<_>>();
@@ -321,8 +332,8 @@ fn send_critical_message(
             }
         }
         
-        // 发送数据，fin=false（流保持打开）
-        conn.stream_send(stream_id, &data, false)
+        // 发送分帧数据，fin=false（流保持打开）
+        conn.stream_send(stream_id, &framed_data, false)
             .map_err(|e| format!("QUIC发送失败: {}", e))?;
         // 发送完毕后关闭流
         conn.stream_send(stream_id, &[], true)
