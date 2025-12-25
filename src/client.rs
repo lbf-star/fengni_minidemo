@@ -16,7 +16,7 @@ use silent_speaker::whisper::{FecWhisper, FecFrame};
 use std::collections::{HashMap, VecDeque, HashSet};
 
 const MAX_DATAGRAM_SIZE: usize = 1350;
-const SESSION_BASE_SEED: [u8; 32] = [0x42; 32]; // Hardcoded seed for Phase 3
+use silent_speaker::SESSION_BASE_SEED; // From lib.rs
 
 fn main() {
     // 日志系统初始化
@@ -128,7 +128,7 @@ fn main() {
 
     while let Err(e) = socket.send_to(&out[..write], send_info.to) {
         if e.kind() == std::io::ErrorKind::WouldBlock {
-            debug!("发送操作将阻塞");
+            tracing::trace!("发送操作将阻塞");
             continue;
         }
 
@@ -163,7 +163,7 @@ fn main() {
                     // There are no more UDP packets to read, so end the read
                     // loop.
                     if e.kind() == std::io::ErrorKind::WouldBlock {
-                        debug!("接受操作将阻塞");
+                        tracing::trace!("接受操作将阻塞");
                         break 'read;
                     }
 
@@ -171,7 +171,7 @@ fn main() {
                 },
             };
 
-            debug!("获得 {len} 字节");
+            tracing::trace!("获得 {len} 字节");
 
             let recv_info = quiche::RecvInfo {
                 to: socket.local_addr().unwrap(),
@@ -188,10 +188,10 @@ fn main() {
                 },
             };
 
-            debug!("已处理 {read} 字节");
+            tracing::trace!("已处理 {read} 字节");
         }
 
-        debug!("读取完成");
+        tracing::trace!("读取完成");
 
         if conn.is_closed() {
             info!("连接已关闭, {:?}", conn.stats());
@@ -322,7 +322,7 @@ fn main() {
                 Ok(v) => v,
 
                 Err(quiche::Error::Done) => {
-                    debug!("写入完成");
+                    tracing::trace!("写入完成");
                     break;
                 },
 
@@ -334,16 +334,16 @@ fn main() {
                 },
             };
 
-            if let Err(e) = socket.send_to(&out[..write], send_info.to) {
+            while let Err(e) = socket.send_to(&out[..write], send_info.to) {
                 if e.kind() == std::io::ErrorKind::WouldBlock {
-                    debug!("发送操作将阻塞");
+                    tracing::trace!("发送操作将阻塞");
                     break;
                 }
 
                 panic!("发送操作失败: {e:?}");
             }
 
-            debug!("已写入 {write}");
+            tracing::trace!("已写入 {write}");
         }
 
         if conn.is_closed() {

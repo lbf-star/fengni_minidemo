@@ -1,7 +1,7 @@
 use reed_solomon_erasure::galois_8::ReedSolomon;
 use uuid::Uuid;
 use crate::whisper::{FecFrame, BlockType};
-use tracing::{info, debug};
+use tracing::info;
 
 /// FEC编码器：将数据分割为k个块，生成m个冗余块（最小填充方案）
 pub struct FECEncoder {

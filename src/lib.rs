@@ -36,5 +36,8 @@ pub use framing::{frame_message, parse_framed_message, FramingError}; // 新增�
 /// 库版本信息
 pub const VERSION: &str = env!("CARGO_PKG_VERSION");
 
+/// 默认会话基础种子 (Phase 3+)
+pub const SESSION_BASE_SEED: [u8; 32] = [0x42; 32];
+
 // 日志系统
 pub mod logging;

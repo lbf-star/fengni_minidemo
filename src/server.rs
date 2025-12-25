@@ -21,7 +21,7 @@ use silent_speaker::fec::FECReassembler;
 // Duplicate import removed
 
 const MAX_DATAGRAM_SIZE: usize = 1350;
-const SESSION_BASE_SEED: [u8; 32] = [0x42; 32]; // Shared seed
+use silent_speaker::SESSION_BASE_SEED;
 
 struct PartialResponse {
     body: Vec<u8>,
@@ -137,7 +137,7 @@ fn main() {
                     // There are no more UDP packets to read, so end the read
                     // loop.
                     if e.kind() == std::io::ErrorKind::WouldBlock {
-                        debug!("接收操作将阻塞");
+                        tracing::trace!("接收操作将阻塞");
                         break 'read;
                     }
 
@@ -145,7 +145,7 @@ fn main() {
                 },
             };
 
-            debug!("收到 {len} 字节");
+            tracing::trace!("收到 {len} 字节");
 
             let pkt_buf = &mut buf[..len];
 
@@ -309,7 +309,7 @@ fn main() {
                 },
             };
 
-            debug!("{} 已处理 {} 字节", client.conn.trace_id(), read);
+            tracing::trace!("{} 已处理 {} 字节", client.conn.trace_id(), read);
 
             if client.conn.is_in_early_data() || client.conn.is_established() {
                 // Handle writable streams.
@@ -353,7 +353,7 @@ fn main() {
                     Ok(v) => v,
 
                     Err(quiche::Error::Done) => {
-                        debug!("{} 写入完成", client.conn.trace_id());
+                        tracing::trace!("{} 写入完成", client.conn.trace_id());
                         break;
                     },
 
@@ -365,22 +365,22 @@ fn main() {
                     },
                 };
 
-                if let Err(e) = socket.send_to(&out[..write], send_info.to) {
+                while let Err(e) = socket.send_to(&out[..write], send_info.to) {
                     if e.kind() == std::io::ErrorKind::WouldBlock {
-                        debug!("发送操作将阻塞");
+                        tracing::trace!("发送操作将阻塞");
                         break;
                     }
 
                     panic!("发送操作失败: {e:?}");
                 }
 
-                debug!("{} 已写入 {} 字节", client.conn.trace_id(), write);
+                tracing::trace!("{} 已写入 {} 字节", client.conn.trace_id(), write);
             }
         }
 
         // Garbage collect closed connections.
         clients.retain(|_, ref mut c| {
-            debug!("正在清理垃圾连接");
+            tracing::trace!("正在清理垃圾连接");
 
             if c.conn.is_closed() {
                 info!(
@@ -472,7 +472,7 @@ fn handle_stream(
 ) {
     let conn = &mut client.conn;
     
-    debug!(
+    tracing::trace!(
         "{} 流 {} 收到 {} 字节数据",
         conn.trace_id(),
         stream_id,
@@ -633,7 +633,7 @@ fn process_single_message(
                 Ok(framed_ack) => {
                     // 发送ACK回执到客户端
                     match conn.stream_send(stream_id, &framed_ack, false) {
-                        Ok(_) => debug!("{} 已发送ACK", conn.trace_id()),
+                        Ok(_) => tracing::trace!("{} 已发送ACK", conn.trace_id()),
                         Err(e) => error!("{} 发送ACK失败: {:?}", conn.trace_id(), e),
                     }
                 },
