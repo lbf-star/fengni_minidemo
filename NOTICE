@@ -1,0 +1,28 @@
+Silent Speaker (FFI-Enabled Reliable Signaling Protocol)
+Copyright 2024-2025 Feng Ni and Contributors
+
+This project uses the following third-party libraries:
+
+1. quiche (Google)
+   Website: https://github.com/google/quiche
+   License: BSD-like (Google BSD License)
+
+2. ring (Brian Smith)
+   Website: https://github.com/briansmith/ring
+   License: ISC/Similar (Safe, performance-oriented cryptography)
+
+3. prost (Tokio Project)
+   Website: https://github.com/tokio-rs/prost
+   License: Apache License 2.0
+
+4. reed-solomon-erasure (Nicolas Trangez / Backblaze)
+   Website: https://github.com/darox/reed-solomon-erasure
+   License: MIT
+
+5. uuid (The Rust Project Developers)
+   Website: https://github.com/uuid-rs/uuid
+   License: Apache 2.0 / MIT
+
+6. tracing (Tokio Project)
+   Website: https://github.com/tokio-rs/tracing
+   License: MIT

@@ -817,6 +817,7 @@ name = "silent-speaker"
 version = "0.1.0"
 dependencies = [
  "hex",
+ "libc",
  "log",
  "mio",
  "prost",

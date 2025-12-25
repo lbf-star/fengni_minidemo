@@ -7,6 +7,7 @@ edition = "2024"
 [lib]
 name = "silent_speaker"
 path = "src/lib.rs"
+crate-type = ["rlib", "cdylib", "staticlib"]
 
 # 二进制定义
 [[bin]]
@@ -18,6 +19,7 @@ name = "whisper-client"
 path = "src/client.rs"
 
 [dependencies]
+libc = "0.2"
 quiche = "0.24.6"  # QUIC库
 prost = "0.14.1"  # Protobuf
 prost-types = "0.14.1"  # Protobuf

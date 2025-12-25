@@ -41,3 +41,6 @@ pub const SESSION_BASE_SEED: [u8; 32] = [0x42; 32];
 
 // 日志系统
 pub mod logging;
+
+/// C-API (FFI) 支持
+pub mod capi;
