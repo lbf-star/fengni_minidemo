@@ -9,7 +9,7 @@
 **Silent Speaker** is a high-performance, security-focused implementation of the **fengni** protocol. Built on top of QUIC, it is designed to be highly resistant to traffic analysis and network instability.
 
 ### The fengni Protocol
-**fengni** (pronounced like *"funny"*) refers to the core architectural design of this system. The name is derived from the Chinese word **"封泥" (fēng ní)**, which refers to the "Clay Seals" used in ancient China to protect the privacy of official correspondences and documents. 
+**fengni** (pronounced like *"fenny"*) refers to the core architectural design of this system. The name is derived from the Chinese word **"封泥" (fēng ní)**, which refers to the "Clay Seals" used in ancient China to protect the privacy of official correspondences and documents. 
 
 Like its namesake, the **fengni** protocol ensures that the structure and content of your digital communication remain sealed and untamperable through modern cryptographic "clay":
 - **Dynamic Framing**: Obfuscated frame structures that shift based on a rotating salt.
@@ -40,7 +40,7 @@ The output will be located in `target/release/` or `target/<target>/release/`.
 **Silent Speaker** 是 **fengni** 协议的高性能、安全性参考实现。它基于 QUIC 构建，旨在抵御流量分析并应对极端不稳定的网络环境。
 
 ### fengni (封泥) 协议
-**fengni**（英文谐音为 *"funny"*）代表了本系统的核心架构设计。其名称灵感源自中国古代用于信函保密的 **“封泥” (fēng ní)**。
+**fengni**（英文谐音为 *"fenny"*）代表了本系统的核心架构设计。其名称灵感源自中国古代用于信函保密的 **“封泥” (fēng ní)**。
 
 正如古代封泥通过物理印记保护简牍私密性，**fengni** 协议通过现代密码学“数字封泥”确保通信的结构和内容不可观测且不可篡改：
 - **动态分帧 (Dynamic Framing)**：基于旋转盐值的混淆帧结构。
