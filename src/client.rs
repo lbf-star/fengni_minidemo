@@ -7,9 +7,13 @@ use prost::Message;
 use silent_speaker::whisper::{Whisper, Priority};
 use silent_speaker::whisper::whisper::Payload;
 use silent_speaker::critical_sender::CriticalSender;
-use silent_speaker::framing::frame_message; // 新增导入
+use silent_speaker::dynamic_framing::{SaltGenerator, build_dynamic_frame, DynamicStreamParser}; // Updated imports
+use silent_speaker::framing::FramingError; // Keep for error handling if needed, or remove if unused
+
+use std::collections::HashMap; // Import HashMap
 
 const MAX_DATAGRAM_SIZE: usize = 1350;
+const SESSION_BASE_SEED: [u8; 32] = [0x42; 32]; // Hardcoded seed for Phase 3
 
 fn main() {
     // 日志系统初始化
@@ -23,6 +27,10 @@ fn main() {
     // 新增：统一流管理器（客户端单例）
     use silent_speaker::stream::UnifiedStreamManager;
     let mut stream_manager = UnifiedStreamManager::new(100);
+
+    // Dynamic Framing State
+    let mut stream_generators: HashMap<u64, SaltGenerator> = HashMap::new();
+    let mut stream_parsers: HashMap<u64, DynamicStreamParser> = HashMap::new(); // For receiving ACKs
 
     let mut buf = [0; 65535];
     let mut out = [0; MAX_DATAGRAM_SIZE];
@@ -183,35 +191,41 @@ fn main() {
     // ============ 修改开始：使用分帧发送普通消息 ============
     let mut whisper = Whisper::default();
     whisper.id = uuid::Uuid::new_v4().as_bytes().to_vec();
-    whisper.payload = Some(Payload::Content("测试普通消息".to_string()));
+    whisper.payload = Some(Payload::Content("测试普通消息(动态帧)".to_string()));
     whisper.timestamp_ns = std::time::SystemTime::now()
         .duration_since(std::time::UNIX_EPOCH)
         .unwrap()
         .as_nanos() as u64;
     whisper.priority = Priority::Normal as i32;
     
-    // 使用分帧函数包装消息
-    let framed_data = frame_message(&whisper);
+    // 为演示目的，我们手动指定一个StreamID (例如 4)
+    // 在生产代码中，这应该由StreamManager或quiche自动分配
+    let stream_id = 4; // 示例
     
-    // 使用统一流管理器分配流
-    match stream_manager.allocate_stream_for_normal_message(framed_data, Priority::Normal) {
-        Some((stream_id, message_data)) => {
-            // 发送分帧数据
-            conn.stream_send(stream_id, &message_data, false).unwrap();
-            info!("普通消息已通过统一流管理器发送，流ID: {}", stream_id);
-            
-            // 发送完毕后关闭流
-            conn.stream_send(stream_id, &[], true).unwrap();
-            info!("流{}已关闭", stream_id);
-        }
-        None => {
-            error!("无法分配流发送普通消息，已加入等待队列");
-        }
+    // 获取 Generator
+    let generator = stream_generators.entry(stream_id).or_insert_with(|| {
+        SaltGenerator::new_diversified(SESSION_BASE_SEED, stream_id)
+    });
+    
+    // 序列化 Whisper
+    let whisper_bytes = whisper.encode_to_vec();
+    
+    // 动态分帧
+    match build_dynamic_frame(generator, &whisper_bytes) {
+        Ok(framed_data) => {
+            // 发送
+            match conn.stream_send(stream_id, &framed_data, true) { // fin=true
+                 Ok(_) => info!("普通消息已发送 (动态帧), 流ID: {}", stream_id),
+                 Err(e) => error!("发送失败: {:?}", e),
+            }
+        },
+        Err(e) => error!("分帧失败: {}", e),
     }
+
     // ============ 修改结束 ============
     
     // 新增：发送关键信令（FEC保护）- 使用分帧版本
-    match send_critical_message_with_framing(&mut conn, &mut critical_sender, "这是一条关键信令！") {
+    match send_critical_message_with_framing(&mut conn, &mut critical_sender, &mut stream_generators, "这是一条关键信令(动态帧)！") {
         Ok(_) => info!("关键信令发送成功"),
         Err(e) => error!("关键信令发送失败: {}", e),
     }
@@ -233,10 +247,37 @@ fn main() {
                     fin
                 );
 
-                // ============ 修改开始：尝试解析分帧消息 ============
-                // 注意：客户端目前只接收确认消息，简化处理
-                if let Ok(text) = std::str::from_utf8(stream_buf) {
-                    print!("{}", text);
+                // ============ 修改开始：尝试解析分帧消息（ACK） ============
+                // 获取解析器
+                let parser = stream_parsers.entry(s).or_insert_with(|| {
+                     let generator = SaltGenerator::new_diversified(SESSION_BASE_SEED, s);
+                     DynamicStreamParser::new(generator)
+                });
+                
+                if let Err(e) = parser.append_data(stream_buf) {
+                     error!("ACK解析Buffer溢出/错误: {}", e);
+                     continue;
+                }
+                
+                loop {
+                    match parser.try_parse_next() {
+                         Ok(Some(payload)) => {
+                             // ACK 应该是 Whisper 消息
+                             if let Ok(whisper) = Whisper::decode(&payload[..]) {
+                                 match whisper.payload {
+                                     Some(Payload::Content(txt)) => info!("收到服务端ACK: {}", txt),
+                                     _ => info!("收到服务端非文本ACK"),
+                                 }
+                             } else {
+                                 warn!("收到无法解析的Protobuf ACK");
+                             }
+                         },
+                         Ok(None) => break, // Need more data
+                         Err(e) => {
+                             error!("ACK动态帧解析失败: {}", e);
+                             break;
+                         }
+                    }
                 }
                 // ============ 修改结束 ============
 
@@ -294,12 +335,10 @@ fn main() {
 fn send_critical_message_with_framing(
     conn: &mut quiche::Connection,
     sender: &mut CriticalSender,
+    generators: &mut HashMap<u64, SaltGenerator>,
     message: &str,
 ) -> Result<(), String> {
     info!("发送关键信令: {}", message); 
-    let message_bytes = message.as_bytes();
-    info!("发送关键信令: '{}', 字节长度: {}", message, message_bytes.len());
-    
     // 准备FEC消息（返回原始的FecWhisper）
     let messages = sender.prepare_critical_message(0, message.as_bytes(), Priority::Urgent)?;
     
@@ -318,8 +357,17 @@ fn send_critical_message_with_framing(
             .as_nanos() as u64;
         whisper.priority = Priority::Urgent as i32;
     
-        // 使用分帧函数包装消息
-        let framed_data = frame_message(&whisper);
+        // 序列化
+        let whisper_bytes = whisper.encode_to_vec();
+        
+        // 获取/创建Generator
+        let generator = generators.entry(stream_id).or_insert_with(|| {
+             SaltGenerator::new_diversified(SESSION_BASE_SEED, stream_id)
+        });
+        
+        // 动态分帧
+        let framed_data = build_dynamic_frame(generator, &whisper_bytes)
+             .map_err(|e| format!("Dynamic Framing Error: {}", e))?;
         
         // 检查流是否可写
         let writable_streams = conn.writable().collect::<Vec<_>>();
@@ -346,7 +394,7 @@ fn send_critical_message_with_framing(
             warn!("标记帧发送失败: {}", e);
         }
         
-        info!("已发送FEC块到流{}", stream_id);
+        info!("已发送FEC块到流{} (DynamicFrame)", stream_id);
     }
     
     Ok(())

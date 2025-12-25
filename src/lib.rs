@@ -16,6 +16,8 @@ pub mod critical_sender;
 
 /// 新增：消息分帧工具模块
 pub mod framing;
+/// 动态分帧模块 (Phase 3)
+pub mod dynamic_framing;
 
 /// 重新导出常用类型
 pub use whisper::*;

@@ -15,10 +15,12 @@ use hex;
 use prost::Message;
 use silent_speaker::whisper::{Whisper, Priority};
 use silent_speaker::whisper::whisper::Payload;
-use silent_speaker::framing::{frame_message, StreamParser};
+use silent_speaker::framing::{frame_message, StreamParser}; // Keep old for reference or fallback? Actually remove StreamParser usage
 use silent_speaker::fec::FECReassembler;
+use silent_speaker::dynamic_framing::{SaltGenerator, build_dynamic_frame, DynamicStreamParser}; // New imports
 
 const MAX_DATAGRAM_SIZE: usize = 1350;
+const SESSION_BASE_SEED: [u8; 32] = [0x42; 32]; // Shared seed
 
 struct PartialResponse {
     body: Vec<u8>,
@@ -28,14 +30,17 @@ struct PartialResponse {
 struct Client {
     conn: quiche::Connection,
     partial_responses: HashMap<u64, PartialResponse>,
-    conn_id: u64,  // 新增：数字连接ID用于FEC发送器
-    stream_parsers: HashMap<u64, StreamParser>,
+    conn_id: u64,
+    // stream_parsers: HashMap<u64, StreamParser>, // OLD
+    stream_parsers: HashMap<u64, DynamicStreamParser>, // NEW
+    generators: HashMap<u64, SaltGenerator>, // NEW: For sending ACKs
     fec_reassembler: FECReassembler,
 }
 
 type ClientMap = HashMap<quiche::ConnectionId<'static>, Client>;
 
 fn main() {
+
     // 日志系统初始化
     init();
 
@@ -273,6 +278,7 @@ fn main() {
                     partial_responses: HashMap::new(),
                     conn_id: numeric_conn_id,  // 存储数字连接ID
                     stream_parsers: HashMap::new(),
+                    generators: HashMap::new(), // Init generators
                     fec_reassembler: FECReassembler::new(4, 2),
                 };
 
@@ -475,7 +481,10 @@ fn handle_stream(
     // 步骤1: 获取或创建解析器
     let parser = client.stream_parsers
         .entry(stream_id)
-        .or_insert_with(StreamParser::new);
+        .or_insert_with(|| {
+             let generator = SaltGenerator::new_diversified(SESSION_BASE_SEED, stream_id);
+             DynamicStreamParser::new(generator)
+        });
     
     // 步骤2: 检查缓冲区大小
     if parser.buffer_size() > 10 * 1024 * 1024 {
@@ -505,8 +514,12 @@ fn handle_stream(
     let mut messages = Vec::new();
     loop {
         match parser.try_parse_next() {
-            Ok(Some(whisper)) => {
-                messages.push(whisper);
+            Ok(Some(payload)) => {
+                // Decode Protobuf
+                match Whisper::decode(&payload[..]) {
+                    Ok(whisper) => messages.push(whisper),
+                    Err(e) => error!("{} Protobuf解码失败: {}", conn.trace_id(), e),
+                }
             }
             Ok(None) => {
                 // 数据不完整，等待更多数据
@@ -607,12 +620,23 @@ fn process_single_message(
             ack_whisper.priority = whisper.priority;
             
             // 使用分帧函数包装ACK消息
-            let framed_ack = silent_speaker::frame_message(&ack_whisper);
+            // let framed_ack = silent_speaker::frame_message(&ack_whisper);
             
-            // 发送ACK回执到客户端
-            match conn.stream_send(stream_id, &framed_ack, false) {
-                Ok(_) => debug!("{} 已发送ACK", conn.trace_id()),
-                Err(e) => error!("{} 发送ACK失败: {:?}", conn.trace_id(), e),
+            // Generate Dynamic Frame
+            let generator = client.generators.entry(stream_id).or_insert_with(|| {
+                 SaltGenerator::new_diversified(SESSION_BASE_SEED, stream_id)
+            });
+            
+            let bytes = ack_whisper.encode_to_vec();
+            match build_dynamic_frame(generator, &bytes) {
+                Ok(framed_ack) => {
+                    // 发送ACK回执到客户端
+                    match conn.stream_send(stream_id, &framed_ack, false) {
+                        Ok(_) => debug!("{} 已发送ACK", conn.trace_id()),
+                        Err(e) => error!("{} 发送ACK失败: {:?}", conn.trace_id(), e),
+                    }
+                },
+                Err(e) => error!("{} 构建ACK动态帧失败: {}", conn.trace_id(), e),
             }
         }
         
@@ -667,12 +691,19 @@ fn process_single_message(
                         // FEC恢复使用高优先级确认
                         ack_whisper.priority = Priority::High as i32;
                         
-                        let framed_ack = silent_speaker::frame_message(&ack_whisper);
+                        // let framed_ack = silent_speaker::frame_message(&ack_whisper);
                         
-                        // 发送恢复确认
-                        match conn.stream_send(stream_id, &framed_ack, false) {
-                            Ok(_) => debug!("{} 已发送FEC恢复确认", conn.trace_id()),
-                            Err(e) => error!("{} 发送FEC恢复确认失败: {:?}", conn.trace_id(), e),
+                        let generator = client.generators.entry(stream_id).or_insert_with(|| {
+                             SaltGenerator::new_diversified(SESSION_BASE_SEED, stream_id)
+                        });
+                        let bytes = ack_whisper.encode_to_vec();
+                        
+                        if let Ok(framed_ack) = build_dynamic_frame(generator, &bytes) {
+                            // 发送恢复确认
+                            match conn.stream_send(stream_id, &framed_ack, false) {
+                                Ok(_) => debug!("{} 已发送FEC恢复确认", conn.trace_id()),
+                                Err(e) => error!("{} 发送FEC恢复确认失败: {:?}", conn.trace_id(), e),
+                            }
                         }
                         
                         // 这里可以进一步处理恢复的原始数据
@@ -702,11 +733,17 @@ fn process_single_message(
                         // 块接收确认使用普通优先级
                         ack_whisper.priority = Priority::Normal as i32;
                         
-                        let framed_ack = silent_speaker::frame_message(&ack_whisper);
+                        // let framed_ack = silent_speaker::frame_message(&ack_whisper);
+                        let generator = client.generators.entry(stream_id).or_insert_with(|| {
+                             SaltGenerator::new_diversified(SESSION_BASE_SEED, stream_id)
+                        });
+                        let bytes = ack_whisper.encode_to_vec();
                         
-                        match conn.stream_send(stream_id, &framed_ack, false) {
-                            Ok(_) => debug!("{} 已发送FEC块确认", conn.trace_id()),
-                            Err(e) => error!("{} 发送FEC块确认失败: {:?}", conn.trace_id(), e),
+                        if let Ok(framed_ack) = build_dynamic_frame(generator, &bytes) {
+                            match conn.stream_send(stream_id, &framed_ack, false) {
+                                Ok(_) => debug!("{} 已发送FEC块确认", conn.trace_id()),
+                                Err(e) => error!("{} 发送FEC块确认失败: {:?}", conn.trace_id(), e),
+                            }
                         }
                     }
                     

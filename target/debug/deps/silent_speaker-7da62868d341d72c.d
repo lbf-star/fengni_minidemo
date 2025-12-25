@@ -1,8 +1,8 @@
-E:\Toy_project\fengni\silent-speaker\target\debug\deps\libsilent_speaker-7da62868d341d72c.rmeta: src\lib.rs src\fec\mod.rs src\fec\encoder.rs src\fec\reassembler.rs src\fec\frame.rs src\stream\mod.rs src\stream\pool.rs src\stream\scheduler.rs src\stream\manager.rs src\critical_sender.rs src\framing.rs src\logging.rs E:\Toy_project\fengni\silent-speaker\target\debug\build\silent-speaker-c13bb6673cc66083\out/whisper.rs
+E:\Toy_project\fengni\silent-speaker\target\debug\deps\libsilent_speaker-7da62868d341d72c.rmeta: src\lib.rs src\fec\mod.rs src\fec\encoder.rs src\fec\reassembler.rs src\fec\frame.rs src\stream\mod.rs src\stream\pool.rs src\stream\scheduler.rs src\stream\manager.rs src\critical_sender.rs src\framing.rs src\dynamic_framing.rs src\logging.rs E:\Toy_project\fengni\silent-speaker\target\debug\build\silent-speaker-c13bb6673cc66083\out/whisper.rs
 
-E:\Toy_project\fengni\silent-speaker\target\debug\deps\libsilent_speaker-7da62868d341d72c.rlib: src\lib.rs src\fec\mod.rs src\fec\encoder.rs src\fec\reassembler.rs src\fec\frame.rs src\stream\mod.rs src\stream\pool.rs src\stream\scheduler.rs src\stream\manager.rs src\critical_sender.rs src\framing.rs src\logging.rs E:\Toy_project\fengni\silent-speaker\target\debug\build\silent-speaker-c13bb6673cc66083\out/whisper.rs
+E:\Toy_project\fengni\silent-speaker\target\debug\deps\libsilent_speaker-7da62868d341d72c.rlib: src\lib.rs src\fec\mod.rs src\fec\encoder.rs src\fec\reassembler.rs src\fec\frame.rs src\stream\mod.rs src\stream\pool.rs src\stream\scheduler.rs src\stream\manager.rs src\critical_sender.rs src\framing.rs src\dynamic_framing.rs src\logging.rs E:\Toy_project\fengni\silent-speaker\target\debug\build\silent-speaker-c13bb6673cc66083\out/whisper.rs
 
-E:\Toy_project\fengni\silent-speaker\target\debug\deps\silent_speaker-7da62868d341d72c.d: src\lib.rs src\fec\mod.rs src\fec\encoder.rs src\fec\reassembler.rs src\fec\frame.rs src\stream\mod.rs src\stream\pool.rs src\stream\scheduler.rs src\stream\manager.rs src\critical_sender.rs src\framing.rs src\logging.rs E:\Toy_project\fengni\silent-speaker\target\debug\build\silent-speaker-c13bb6673cc66083\out/whisper.rs
+E:\Toy_project\fengni\silent-speaker\target\debug\deps\silent_speaker-7da62868d341d72c.d: src\lib.rs src\fec\mod.rs src\fec\encoder.rs src\fec\reassembler.rs src\fec\frame.rs src\stream\mod.rs src\stream\pool.rs src\stream\scheduler.rs src\stream\manager.rs src\critical_sender.rs src\framing.rs src\dynamic_framing.rs src\logging.rs E:\Toy_project\fengni\silent-speaker\target\debug\build\silent-speaker-c13bb6673cc66083\out/whisper.rs
 
 src\lib.rs:
 src\fec\mod.rs:
@@ -15,6 +15,7 @@ src\stream\scheduler.rs:
 src\stream\manager.rs:
 src\critical_sender.rs:
 src\framing.rs:
+src\dynamic_framing.rs:
 src\logging.rs:
 E:\Toy_project\fengni\silent-speaker\target\debug\build\silent-speaker-c13bb6673cc66083\out/whisper.rs:
 
