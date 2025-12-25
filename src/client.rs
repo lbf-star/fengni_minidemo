@@ -7,7 +7,7 @@ use prost::Message;
 use silent_speaker::whisper::{Whisper, Priority};
 use silent_speaker::whisper::whisper::Payload;
 use silent_speaker::critical_sender::CriticalSender;
-use silent_speaker::dynamic_framing::{SaltGenerator, build_dynamic_frame, DynamicStreamParser};
+use silent_speaker::dynamic_framing::{SaltGenerator, build_dynamic_frame, DynamicStreamParser, SilentConfig};
 use silent_speaker::framing::FramingError; // Keep for error handling if needed, or remove if unused
 use silent_speaker::stream::UnifiedStreamManager;
 use silent_speaker::fec::FECEncoder;
@@ -38,6 +38,9 @@ fn main() {
     // Phase 4: 统一流管理器和FEC编码器
     let mut stream_manager = UnifiedStreamManager::new(100); // Max 100 streams
     let mut fec_encoder = FECEncoder::new(4, 2).expect("FEC编码器初始化失败"); // 4 data + 2 parity
+    
+    // Phase 5 Config
+    let silent_config = SilentConfig::default(); // Robust Mode enabled by default
     
     // 注册预留流 (0 used for handshake/control potentially?)
     stream_manager.reserve_stream(0);
@@ -218,7 +221,7 @@ fn main() {
         });
 
         // 3. 构建动态帧
-        match build_dynamic_frame(generator, &data_to_send) {
+        match build_dynamic_frame(generator, &data_to_send, silent_config) {
             Ok(framed_data) => {
                 // 4. 发送
                 match conn.stream_send(stream_id, &framed_data, true) {
@@ -279,7 +282,7 @@ fn main() {
                 }
                 
                 loop {
-                    match parser.try_parse_next() {
+                    match parser.try_parse_next(silent_config) {
                          Ok(Some(payload)) => {
                              // ACK 应该是 Whisper 消息
                              if let Ok(whisper) = Whisper::decode(&payload[..]) {
@@ -395,7 +398,7 @@ fn send_critical_message_integrated(
         });
         
         // Dynamic Frame
-        let framed_bytes = build_dynamic_frame(generator, &bytes)
+        let framed_bytes = build_dynamic_frame(generator, &bytes, SilentConfig::default())
              .map_err(|e| format!("Framing Error: {}", e))?;
              
         // Send via QUIC

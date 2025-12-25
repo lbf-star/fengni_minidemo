@@ -1,4 +1,4 @@
-use silent_speaker::dynamic_framing::{SaltGenerator, build_dynamic_frame, DynamicStreamParser};
+use silent_speaker::dynamic_framing::{SaltGenerator, build_dynamic_frame, DynamicStreamParser, SilentConfig};
 use silent_speaker::stream::UnifiedStreamManager;
 use silent_speaker::fec::{FECEncoder, FECReassembler};
 use silent_speaker::whisper::{Whisper, Priority, FecWhisper};
@@ -33,7 +33,8 @@ fn test_integrated_stack_normal_message() {
         SaltGenerator::new_diversified(TEST_SESSION_SEED, stream_id)
     });
 
-    let frame = build_dynamic_frame(generator, &data_to_send).expect("Framing failed");
+    let config = SilentConfig::default();
+    let frame = build_dynamic_frame(generator, &data_to_send, config).expect("Framing failed");
 
     // 4. 接收端：解析
     let parser = receiver_parsers.entry(stream_id).or_insert_with(|| {
@@ -42,7 +43,7 @@ fn test_integrated_stack_normal_message() {
     });
     
     parser.append_data(&frame).expect("Append failed");
-    let parsed_opt = parser.try_parse_next().expect("Parse failed");
+    let parsed_opt = parser.try_parse_next(config).expect("Parse failed");
     assert!(parsed_opt.is_some(), "Should parse one frame");
     let parsed_bytes = parsed_opt.unwrap();
 
@@ -99,7 +100,7 @@ fn test_integrated_stack_fec_message() {
         let generator = sender_generators.entry(*stream_id).or_insert_with(|| {
             SaltGenerator::new_diversified(TEST_SESSION_SEED, *stream_id)
         });
-        let wired_frame = build_dynamic_frame(generator, &bytes).unwrap();
+        let wired_frame = build_dynamic_frame(generator, &bytes, SilentConfig::default()).unwrap();
 
         // Receive
         let parser = receiver_parsers.entry(*stream_id).or_insert_with(|| {
@@ -108,7 +109,7 @@ fn test_integrated_stack_fec_message() {
         });
         parser.append_data(&wired_frame).unwrap();
         
-        let decrypted_bytes = parser.try_parse_next().unwrap().unwrap();
+        let decrypted_bytes = parser.try_parse_next(SilentConfig::default()).unwrap().unwrap();
         
         // Decode Protobuf
         let decoded = Whisper::decode(&decrypted_bytes[..]).unwrap();

@@ -2,6 +2,7 @@ use tracing::{info, error, warn, debug, trace};
 use silent_speaker::logging::init;
 
 use silent_speaker::critical_sender::CriticalSender;
+use silent_speaker::dynamic_framing::{SaltGenerator, build_dynamic_frame, DynamicStreamParser, parse_dynamic_frame, DynamicFramingError, SilentConfig};
 
 use std::sync::Arc;
 use std::sync::Mutex;
@@ -17,7 +18,7 @@ use silent_speaker::whisper::{Whisper, Priority};
 use silent_speaker::whisper::whisper::Payload;
 use silent_speaker::framing::{frame_message, StreamParser}; // Keep old for reference or fallback? Actually remove StreamParser usage
 use silent_speaker::fec::FECReassembler;
-use silent_speaker::dynamic_framing::{SaltGenerator, build_dynamic_frame, DynamicStreamParser}; // New imports
+// Duplicate import removed
 
 const MAX_DATAGRAM_SIZE: usize = 1350;
 const SESSION_BASE_SEED: [u8; 32] = [0x42; 32]; // Shared seed
@@ -513,7 +514,7 @@ fn handle_stream(
     // 步骤4: 收集所有解析出的消息
     let mut messages = Vec::new();
     loop {
-        match parser.try_parse_next() {
+        match parser.try_parse_next(SilentConfig::default()) {
             Ok(Some(payload)) => {
                 // Decode Protobuf
                 match Whisper::decode(&payload[..]) {
@@ -628,7 +629,7 @@ fn process_single_message(
             });
             
             let bytes = ack_whisper.encode_to_vec();
-            match build_dynamic_frame(generator, &bytes) {
+            match build_dynamic_frame(generator, &bytes, SilentConfig::default()) {
                 Ok(framed_ack) => {
                     // 发送ACK回执到客户端
                     match conn.stream_send(stream_id, &framed_ack, false) {
@@ -698,7 +699,7 @@ fn process_single_message(
                         });
                         let bytes = ack_whisper.encode_to_vec();
                         
-                        if let Ok(framed_ack) = build_dynamic_frame(generator, &bytes) {
+                        if let Ok(framed_ack) = build_dynamic_frame(generator, &bytes, SilentConfig::default()) {
                             // 发送恢复确认
                             match conn.stream_send(stream_id, &framed_ack, false) {
                                 Ok(_) => debug!("{} 已发送FEC恢复确认", conn.trace_id()),
@@ -739,7 +740,7 @@ fn process_single_message(
                         });
                         let bytes = ack_whisper.encode_to_vec();
                         
-                        if let Ok(framed_ack) = build_dynamic_frame(generator, &bytes) {
+                        if let Ok(framed_ack) = build_dynamic_frame(generator, &bytes, SilentConfig::default()) {
                             match conn.stream_send(stream_id, &framed_ack, false) {
                                 Ok(_) => debug!("{} 已发送FEC块确认", conn.trace_id()),
                                 Err(e) => error!("{} 发送FEC块确认失败: {:?}", conn.trace_id(), e),
